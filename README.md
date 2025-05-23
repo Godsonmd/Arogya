@@ -75,28 +75,40 @@
 ## 🚀 Getting Started
 
 1. Clone the Repository 
-<code>
-<pre lang="bash">bash git clone https://github.com/Godsonmd/Arogya.git
-cd Arogya</pre>
-</code>
+    ```bash
+    git clone https://github.com/Godsonmd/Arogya.git
+    cd Arogya
+    ```
   
-3. (Optional) Create a Virtual Environment
-  <code>
-  <pre lang="bash">python -m venv venv </pre>
-    - On Linux and macOS (Unix-like systems) use:
-      <pre lang="bash">source venv/bin/activate </pre>
-    - On Windows use:
-      <pre lang="bash">venv\Scripts\activate </pre>
-   </code>
-4. Install Dependencies
-   ```pip install -r requirements.txt```
-5. Apply Migrations
-   ```python manage.py makemigrations```
-   ```python manage.py migrate```
-6. Create Superuser
-   ```python manage.py createsuperuser```
-7. Run the Development Server
-   ```python manage.py runserver```
-8. Visit the Site:
+2. (Optional) Create a Virtual Environment
+    ```bash
+    python -m venv venv
+    ```
+      - On Linux and macOS (Unix-like systems) use:
+        ```bash
+        source venv/bin/activate
+        ```
+      - On Windows use:
+        ```bash
+        venv\Scripts\activate
+        ```
+3. Install Dependencies
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. Apply Migrations
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+5. Create Superuser
+   ```bash
+   python manage.py createsuperuser
+   ```
+6. Run the Development Server
+   ```bash
+   python manage.py runserver
+   ```
+7. Visit the Site:
    - User Interface: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
    - Django Admin Panel: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
