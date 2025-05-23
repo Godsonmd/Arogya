@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+ <title>Profile Editing</title>
+ <style>
+ body {
+ background-color: #008080; /* Aqua background */
+ color: #FFFFFF; /* White text */
+ font-family: sans-serif;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ min-height: 100vh;
+ }
+
+
+ .profile-container {
+ width: 80%;
+ max-width: 600px;
+ padding: 30px;
+ background-color: rgba(0, 128, 128, 0.2); /* Lighter aqua background */
+ border: 2px solid #FFFFFF;
+ border-radius: 15px;
+ text-align: left;
+ box-shadow: 0 0 15px rgba(0, 255, 255, 0.4); /* Aqua glow */
+ }
+
+
+ h1 {
+ color: #FFFFFF;
+ text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+ margin-bottom: 20px;
+ text-align: center;
+ }
+
+
+ label {
+ display: block;
+ margin-bottom: 5px;
+ color: #FFFFFF;
+ }
+
+
+ input,
+ textarea,select {
+ width: 100%;
+ padding: 10px;
+ margin-bottom: 15px;
+ border: 1px solid #FFFFFF;
+ border-radius: 5px;
+ background-color: rgba(255, 255, 255, 0.1);
+ color: #FFFFFF;
+ box-sizing: border-box; /* Important for padding and border */
+ appearance: none;
+ }
+option{
+    color: #000000;
+}
+option:hover{
+    color: aqua;
+}
+
+ input:focus,select:focus,
+ textarea:focus {
+ outline: none;
+ border-color: #00FFFF; /* Highlight on focus */
+ box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+ }
+
+
+
+
+ button {
+ background-color: #00FFFF; /* Aqua button */
+ color: #008080; /* Dark aqua text */
+ padding: 12px 20px;
+ border: none;
+ border-radius: 8px;
+ cursor: pointer;
+ font-size: 1em;
+ transition: background-color 0.3s ease;
+ }
+
+
+ button:hover {
+ background-color: #FFFFFF; /* White on hover */
+ color: #008080;
+ }
+ .header {
+    background-color: #4A90E2;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 98%;
+    top: 0;
+    transform: translateX(-0px);
+    z-index: 100;
+ }
+ 
+ .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    font-size: 1.25rem;
+ 
+ }
+ .brand-logo {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    padding: 0.5rem 1rem;
+    color: #000000;
+ }
+ 
+ .nav-link {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 1s ease;
+    position: relative;
+ }
+ 
+ .nav-link:hover,
+ .nav-link:focus {
+    color:#00ffff;
+ }
+ .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #00ffff;
+    transition: width 0.3s ease;
+ }
+ 
+ .nav-link:hover::after,
+ .nav-link:focus::after {
+    width: 100%;
+ }   
+ .cta-button {
+    color: black;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: linear-gradient(to right, #00FFFF 50%, #4A90E2 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;        
+    transition: all 1s ease;
+    border-radius: 0px;
+    overflow: hidden;
+ }
+ 
+ .cta-button:hover {
+    transform: rotateZ(0deg) translateY(-2px);
+    color: #ffff;
+    border: 2px solid aqua;
+    border-radius: 40px;
+    background-position: left bottom;
+    }
+    .cta-button:active
+    { transform: rotateZ(0deg) translateY(2px);}
+    .vani{
+      animation: vv both;
+      animation-timeline: view(75% 25%);
+     }
+     @keyframes vv{
+      from{
+          opacity: 0;
+          transform: translateY(200px) scale(0.3);
+      } 
+      to{
+          opacity: 1;
+          transform: translateY(0px) scale(1);
+      }            
+     }
+     
+     .show{
+      animation: ss 2s   1 ease ;
+     }
+     @keyframes ss{
+      from{
+          opacity: 0;
+          transform: translateY(-500px) ;
+      } 
+      to{
+          opacity: 1;
+          transform: translateY(0px);
+      }            
+     }
+     .show1{
+      animation: sss 2s   1 ease ;
+     }
+     @keyframes sss{
+      from{
+          opacity: 0;
+          transform: translateX(-50px);
+          
+      } 
+      to{
+          opacity: 1;
+          transform: translateX(0px);
+      }            
+     }
+     .show2{
+      animation: ssss 2s   1 ease ;
+     }
+     @keyframes ssss{
+      from{
+          opacity: 0;
+          transform: translateX(1350px);
+          
+      } 
+      to{
+          opacity: 1;
+          
+      }            
+     }
+ </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-links show1" aria-label="Main navigation">
+            <span class="brand-logo">arogya</span>
+            <a href="/login" class="nav-link" aria-current="page">Home</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/contact" class="nav-link">Contact</a>
+            <a href="/Abot" class="nav-link">Arogya Bot</a>
+            <a href="/nearest-gyms" class="nav-link">Nearest Gyms</a>
+        </nav>
+        <button class="cta-button show1" onclick="window.location.href='/helpers'"   >Back</button>
+    </header><br><br><br><br><br>
+ <div class="profile-container show">
+ <h1>Edit Profile</h1>
+ <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if user.dr_image %}
+    <label for="nowdp">Current DP:</label>
+    {% else %}
+    <label for="nowdp">Change DP:</label>
+    {% endif %}
+    <img id="nowdp" src="{% if user.dr_image %} {{user.dr_image.url}} {% else %} {% static '/img/OIP (2).jpg' %} {% endif %}" alt="{{user.dr_name}}" style="width: 100px; height: 100px;">
+    <input type="file" name="dr_image">
+ <label for="fullName">Full Name:</label>
+ <input type="text" id="fullName" name="fullName"  required>
+
+
+ <label for="email">Email:</label>
+ <input type="email" id="email" name="email" value="{{user.dr_email}}" readonly>
+
+ <label for="phno">whatsapp No:</label>
+ <input type="tel" id="phno" name="phno" maxlength="10" minlength="10" required>
+ <label for="specialty">Specialty:</label>
+ <input type="text" id="specialty" name="specialty"  required>
+ <label for="availability">Availability:</label>
+ <select id="availability" name="availability" required>
+     <option id="now" value="Now Available"{%if 'Now' in user.availability %} selected {% endif %}> Now Available</option>
+     <option id="not" value="Not Available"{%if 'Not' in user.availability %} selected {% endif %}>Not Available</option>
+ </select><br>
+ <button type="submit">Update Profile</button>
+ </form>
+ </div>
+</body>
+<script>
+    document.getElementById("fullName").value="{{user.dr_name}}";
+    document.getElementById("phno").value="{{user.dr_wa}}";
+    document.getElementById("specialty").value="{{user.specialty}}";
+    document.getElementById("phno").value="{{user.dr_wa}}";
+    document.getElementById("phno").value="{{user.dr_wa}}";
+    document.getElementById("phno").value="{{user.dr_wa}}";
+</script>
+
+
+
+
+</html>
+ 

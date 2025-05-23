@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Doctor Appointment System</title>
+ <style>
+ body {
+ background-color: black;
+ color: aqua;
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ min-height: 100vh;
+ }
+ .header {
+   background-color: #4A90E2;
+   padding: 1rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   position: absolute;
+   width: 98%;
+   top: 0;
+   transform: translateX(-0px);
+   z-index: 100;
+}
+
+.nav-links {
+   display: flex;
+   gap: 2.5rem;
+   align-items: center;
+   font-size: 1.25rem;
+
+}
+.brand-logo {
+   font-weight: 700;
+   text-transform: uppercase;
+   letter-spacing: 0.2em;
+   padding: 0.5rem 1rem;
+   color: #000000;
+}
+
+.nav-link {
+   color: black;
+   text-decoration: none;
+   font-weight: 500;
+   transition: color 1s ease;
+   position: relative;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+   color:#00ffff;
+}
+.nav-link::after {
+   content: '';
+   position: absolute;
+   width: 0;
+   height: 2px;
+   bottom: -4px;
+   left: 0;
+   background-color: #00ffff;
+   transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+   width: 100%;
+}   
+.cta-button {
+   color: black;
+   padding: 1rem 2rem;
+   font-weight: 600;
+   cursor: pointer;
+   border: 2px solid transparent;
+   background: linear-gradient(to right, #00FFFF 50%, #4A90E2 50%);
+   background-size: 200% 100%;
+   background-position: right bottom;        
+   transition: all 1s ease;
+   overflow: hidden;
+}
+
+.cta-button:hover {
+   transform: rotateZ(0deg) translateY(-2px);
+   color: #ffff;
+   border: 2px solid aqua;
+   border-radius: 40px;
+   background-position: left bottom;
+   }
+   .cta-button:active
+   { transform: rotateZ(0deg) translateY(2px);}
+
+ .container {
+ width: 80%;
+ max-width: 600px;
+ margin-top: 20px;
+ }
+
+
+ .form-container {
+ background-color: rgba(0, 0, 0, 0.5);
+ padding: 20px;
+ border-radius: 10px;
+ border: 1px solid aqua;
+ margin-bottom: 20px;
+ }
+
+
+ h1, h2 {
+ color: white;
+ text-align: center;
+ }
+
+
+ label {
+ display: block;
+ margin-bottom: 5px;
+ }
+
+
+ input[type="text"],
+ input[type="email"],
+ input[type="password"] {
+ width: 90%;
+ padding: 10px;
+ margin-bottom: 15px;
+ border: 1px solid aqua;
+ background-color: transparent;
+ color: aqua;
+ border-radius: 5px;
+ }
+
+
+ .button {
+ background-color: rgba(0, 150, 150, 0.7);
+ color: white;
+ padding: 12px 20px;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ font-size: 16px;
+ width: 100%;
+ margin-bottom: 10px;
+ }
+
+
+ .button:hover {
+ background-color: rgba(0, 150, 150, 1);
+ }
+
+
+ .doctor-list {
+ list-style: none;
+ padding: 0;
+ }
+
+ .signup-text{
+    color: aliceblue;
+    display: inline-block;
+    transition: all 1s;
+    cursor: pointer;
+ }
+ .signup-text:hover{
+   color: #00FFFF;
+ }
+ .doctor-list li {
+ background-color: rgba(0, 0, 0, 0.5);
+ border: 1px solid aqua;
+ border-radius: 5px;
+ padding: 10px;
+ margin-bottom: 10px;
+ }
+ .warning-container {
+   display: inline-block;
+   overflow: hidden;
+   padding: 10px;
+   border-right: .15em solid aqua; /* The typwriter cursor */
+   white-space: nowrap; /* Keeps the text on a single line */
+   letter-spacing: .15em; /* Adjust as needed */
+   font-size: 20px; /*Adjust as needed*/
+   animation:   typing 2s steps(50, end),   blink-caret .75s step-end infinite;
+   }
+   @keyframes typing {
+      from { width:  0%; }
+      to { width: 10%; }
+      }
+      @keyframes blink-caret {
+         from, to { border-color: transparent }
+         50% { border-color: {{boxcolor}}; }
+         }
+         .vani{
+            animation: vv both;
+            animation-timeline: view(75% 25%);
+           }
+           @keyframes vv{
+            from{
+                opacity: 0;
+                transform: translateY(200px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px) scale(1);
+            }            
+           }
+           
+           .show{
+            animation: ss 2s   1 ease ;
+           }
+           @keyframes ss{
+            from{
+                opacity: 0;
+                transform: translateY(50px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px);
+            }            
+           }
+           .show1{
+            animation: sss 2s   1 ease ;
+           }
+           @keyframes sss{
+            from{
+                opacity: 0;
+                transform: translateX(-50px);
+                
+            } 
+            to{
+                opacity: 1;
+                transform: translateX(0px);
+            }            
+           }
+           .show2{
+            animation: ssss 2s   1 ease ;
+           }
+           @keyframes ssss{
+            from{
+                opacity: 0;
+                transform: translateX(50px);
+                
+            } 
+            to{
+                opacity: 1;
+                
+            }            
+           }
+ </style>
+</head>
+<body>
+   <header class="header">
+      <nav class="nav-links show1" aria-label="Main navigation">
+          <span class="brand-logo">arogya</span>
+          <a href="/login" class="nav-link" aria-current="page">Home</a>
+          <a href="/about" class="nav-link">About</a>
+          <a href="/contact" class="nav-link">Contact</a>
+          <a href="/Abot" class="nav-link">Arogya Bot</a>
+          <a href="/nearest-gyms" class="nav-link">Nearest Gyms</a>
+      </nav>
+      <button class="cta-button show1" onclick="window.location.href='/'"   >Back</button>
+  </header><br><br><br><br><br>
+ {% if alert %}
+  <div class="warning-container" id="warning-container"  >
+   {{alert|safe}}
+   
+</div>
+{% endif %}
+ <h1 class="show">Experts Visiting System</h1>
+
+
+ <div class="container">
+ <div class="form-container show2" id="loginForm">
+ <h2>Login Here as Experts !</h2>
+ <form method="post">
+    {% csrf_token %}
+    <label for="newEmail">Email:</label>
+    <input type="email" id="newEmail" name="email" placeholder="Enter your email" required >
+
+
+ <label for="password">Password:</label>
+ <input type="password" id="password" name="password"   minlength="8" maxlength="8" placeholder="Enter your password" required >
+<input type="hidden" name="role" value="login">
+<div style="display: flex; justify-content:space-between;">
+<p class="signup-text" onclick="shift(1);">
+    Don't have an account !
+</p>
+<p class="signup-text" onclick="window.location.href='/dsendmail'">
+   Forget password
+</p>
+</div>
+ <button type="submit" class="button">Login</button>
+ </form>
+ </div>
+
+
+ <div class="form-container show1" id="signupForm">
+ <h2>Register Here as Experts !</h2>
+ <form  method="post">
+    {% csrf_token %}
+ <label for="newUsername">Name:</label>
+ <input type="text" id="newUsername" name="name" placeholder="Enter a username" required >
+
+
+ <label for="newEmail">Email:</label>
+ <input type="email" id="Email" name="email" placeholder="Enter your email" required >
+
+
+ <label for="newPassword">Password:</label>
+ <input type="password" id="newPassword" name="password" minlength="8" maxlength="8" placeholder="Enter a password" required >
+ <input type="hidden" name="role" value="signup">
+ <p class="signup-text" onclick="shift(0);">
+   I have an account !
+</p>
+ <button type="submit" class="button">Register</button>
+ </form>
+ </div>
+ <button onclick="window.location.href='/visit';" class="cta-button show" style="width: 100%;">To Visit Experts</button>
+ 
+ </div>
+ <script>
+   lform=document.getElementById("loginForm")
+   sform=document.getElementById("signupForm")
+  function shift(a){
+   if(a)
+   {lform.style.display="none";
+   sform.style.display="block";}
+   else
+   {lform.style.display="block";
+   sform.style.display="none";}
+  }
+  shift(0);
+ </script>
+ {% if alert %}
+ <script>
+   let alertbox=document.getElementById("warning-container");
+   let count=document.getElementById("count");
+   let i=5;
+   alertbox.style.boxShadow=" 0 0 20px {{boxcolor}}";
+   alertbox.style.background="{{bgcolor}}";
+   alertbox.style.color="{{boxcolor}}";
+   const interval =setInterval(function(){ 
+      if(i>0)
+      i--;
+      else
+      {
+      alertbox.style.display="none";
+         clearInterval(interval);
+         resolve();
+      }
+
+   },1000)
+ </script>
+{% endif %}
+
+</body>
+</html>

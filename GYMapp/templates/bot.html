@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.5/brython.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="color: #00FFFF;">Arogya Bot</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* Make the container take full viewport height */
+        background-color: #fff;
+        gap: 0px;
+    }
+    
+    .chat-messages {
+        flex: 1; /* Let this div grow to take available space */
+        overflow-y: auto; /* Allow scrolling */
+        padding: 10px;
+        border: 1px solid #ccc; 
+
+    }
+    
+    .input-bar {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #ccc; /* Add a top border to separate from messages */
+        background-color: white; 
+    }
+    
+    .input-bar textarea {
+        border: 4px solid #4A90E2;
+        flex: 1; /* Allow input to grow and take available space */
+        margin-right: 10px; /* Space between input and button */
+        padding: 10px;
+    }
+    
+    .message {
+        padding: 15px;
+        overflow-wrap: break-word;
+        text-align: left;
+              
+    }
+    
+    .message.bot {
+        box-shadow: 5px 5px 10px aqua;
+        background-color: #333;
+        max-width:  80%;
+        display: inline-block;
+        position: relative;
+        transform: translateY(10px);
+        border-bottom-right-radius: 14px;
+        border-top-right-radius: 14px;
+        border-bottom-left-radius: 14px;
+        border-top-left-radius: 5px;
+    }
+    .bot::before{
+        content: '';
+        position: absolute;
+        clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+        width: 8px;
+        height: 8px;
+        border-radius: 5px;
+        background-color: #333;
+        transform: rotate(89deg) translate(-16px,20px);
+        
+    }
+    .message.me {
+        background-color: mediumspringgreen;
+        width: 20%;
+        color: #333;
+        transform: translateY(5px);
+        box-shadow: -5px 5px 5px #333;
+        justify-items: right;
+        transform: translate(1300px);
+        border-bottom-right-radius: 14px;
+        border-top-left-radius: 14px;
+        border-bottom-left-radius: 14px;
+    }
+    
+    
+    button:active{
+        opacity: 0.6;
+    }
+    .header {
+        background-color: #4A90E2;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        width: 203vh;
+        top: 0;
+        transform: translateX(-0px);
+        z-index: 100;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+        font-size: 1.25rem;
+
+    }
+    .brand-logo {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        padding: 0.5rem 1rem;
+        color: #000000;
+    }
+
+    .nav-link {
+        color: var(--text-black);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color var(--transition-speed) ease;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus {
+        color:#00ffff;
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: #00ffff;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link:focus::after {
+        width: 100%;
+    }   
+    .cta-button {
+        color: black;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: 2px solid transparent;
+        background: linear-gradient(to right, #00FFFF 50%, #4A90E2 50%);
+        background-size: 200% 100%;
+        background-position: right bottom;        
+        transition: all 1s ease;
+        overflow: hidden;
+    }
+
+    .cta-button:hover {
+        transform: rotateZ(0deg) translateY(-2px);
+        color: #ffff;
+        border: 2px solid aqua;
+        border-radius: 40px;
+        background-position: left bottom;
+        }
+        .cta-button:active
+        { transform: rotateZ(0deg) translateY(2px);}
+    #send{
+        background-color:  #4A90E2;
+        color: black;
+        border: none;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 40px;
+    }
+    #send:hover{
+        background-color: #00ffff;
+
+    }
+    .loading{
+        width: 15px;
+        height: 15px;
+        background: white;
+        box-shadow: 0 0 10px aqua, 0 0 20px aqua, 0 0 40px aqua, 0 0 80px aqua, 0 0 160px aqua;
+        border-radius: 50%;
+        animation: loading 0.6s ease  infinite  forwards;
+    }
+    @keyframes loading {
+        0%,100%{transform: translate(-10px);}
+        50%{transform: translate(10px);}
+    }
+    .vani{
+        animation: vv both;
+        animation-timeline: view(75% 25%);
+       }
+       @keyframes vv{
+        from{
+            opacity: 0;
+            transform: translateY(200px) scale(0.3);
+        } 
+        to{
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+        }            
+       }
+       
+       .show{
+        animation: ss 2s   1 ease ;
+       }
+       @keyframes ss{
+        from{
+            opacity: 0;
+            transform: translateY(-50px) ;
+        } 
+        to{
+            opacity: 1;
+            transform: translateY(0px);
+        }            
+       }
+       .show1{
+        animation: sss 2s   1 ease ;
+       }
+       @keyframes sss{
+        from{
+            opacity: 0;
+            transform: translateX(-50px);
+            
+        } 
+        to{
+            opacity: 1;
+            transform: translateX(0px);
+        }            
+       }
+       .show2{
+        animation: ssss 2s   1 ease ;
+       }
+       @keyframes ssss{
+        from{
+            opacity: 0;
+            transform: translateX(1350px);
+            
+        } 
+        to{
+            opacity: 1;
+            
+        }            
+       }
+</style>
+<body onload="brython()">
+    <div class="chat-container">
+        <header class="header">
+            <nav class="nav-links show1" aria-label="Main navigation">
+                <span class="brand-logo">arogya bot</span>
+                <a href="/login" class="nav-link" aria-current="page">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/nearest-gyms" class="nav-link">Nearest Gyms</a>
+                <a onclick="window.history.back()" class="nav-link">Back</a>
+            </nav>
+            <button class="cta-button show1" onclick="location.reload()"  type="button" >Clear BuGs / Chats</button>
+            <button class="cta-button show1"  title="Double click to erase memmory" ondblclick="document.querySelector('.input-bar textarea').value='Clear';document.querySelector('.input-bar button').click();"  type="button" >Clear Memmory</button>
+        </header>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Chat messages will go here -->
+             
+        </div>
+        <div class="input-bar show">
+            <textarea type="text" id="inputField" autofocus aria-autocomplete="none" placeholder="Type a message..."></textarea>
+            <button id="send">Send</button>
+        </div>
+    </div>
+</body>
+<script>
+   
+    const input = document.querySelector('.input-bar textarea');
+    const button = document.querySelector('.input-bar button');
+    const chatMessages = document.querySelector('.chat-messages');
+    
+    input.addEventListener('keydown', function(event) {
+        // Check if the Enter key is pressed
+        if (event.key === 'Enter' && !event.shiftKey)
+        {
+            event.preventDefault();
+            send();
+        }
+    });
+    
+    button.addEventListener('click', () => {
+        send(); // Call the function to handle sending the message
+    });
+    
+    function send() {
+        const message = input.value.trim();
+        if (message) {
+            // Create and append the user message
+            const messageElement = document.createElement('div');
+            messageElement.className = "message me";
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+    
+            // Create a message element for the bot's response
+            const messageElement2 = document.createElement('div');
+            messageElement2.className = "message bot show1";
+            messageElement2.id="textToCopy";
+             // Set the ID for the bot's response
+            messageElement2.innerHTML = "<div class='loading'></div>";
+            messageElement.addEventListener('dblclick', function(event) {
+                messageElement.innerHTML=messageElement.textContent;
+                messageElement.style.background="black";
+            });
+            messageElement2.addEventListener('click', function(event) {
+                // Check if the clicked element is a copy-div and if Ctrl (or Command) key is pressed
+                if(event.ctrlKey || event.metaKey) {
+                    const messageText = event.target.innerText; // Get the text content
+                    navigator.clipboard.writeText(messageText).then(function() {
+                        alert('Text copied to clipboard: ' + messageText);
+                    }, function(err) {
+                        console.error('Could not copy text: ', err);
+                    });
+                }
+            });
+            chatMessages.appendChild(messageElement2);
+    
+            // Send the AJAX request
+            $.ajax({
+                url: '/api/gai/', // Your Django endpoint
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ message: message }), // Send the actual message
+                success: function(data) {
+                    // Update the bot's response with the data received
+                    messageElement2.innerHTML = data.response;
+                    chatMessages.scrollTop = chatMessages.scrollHeight; // Update the response text
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    messageElement2.textContent = "Error: " + error;
+                    chatMessages.scrollTop = chatMessages.scrollHeight;// Show error message
+                }
+            });
+    
+            // Clear input
+            input.value = '';
+            // Auto-scroll to the bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    }
+    document.getElementById('textToCopy').addEventListener('click', function() {
+        // Get the text content of the div
+        const text = this.innerText;
+
+        // Use the Clipboard API to copy the text
+        navigator.clipboard.writeText(text).then(function() {
+            // Success message (optional)
+            input.value=text;
+        }, function(err) {
+            // Error handling (optional)
+            console.error('Could not copy text: '+ err);
+        });
+    });
+    </script>
+</html>

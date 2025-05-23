@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Customized Nutrition Plan</title>
+    <style>
+        :root {
+            --primary-color: #4fbfdf;
+            --secondary-color: #058e8d;
+            --accent-color-1: #e79420;
+            --accent-color-2: #61ad78;
+            --accent-color-3: #bd5142;
+            --text-color: #333;
+            --text-color-light: #fff;
+            --background-color: #f9f9f9;
+            --font-primary: 'Montserrat', sans-serif;
+            --font-secondary: 'Lato', sans-serif;
+            --font-tertiary: 'Kadwa', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--text-color);
+            background:linear-gradient(180deg,black 10%,aqua)
+            
+        }
+
+        .nutrition-plan {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 0;
+            object-fit:contain;
+            min-width: 150vh;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit:fill;
+            z-index: -1;
+        }
+
+        .header {
+            background-color: white;
+            padding: 1rem 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px #0000006f;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 3.625rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 5.4px;
+            text-transform: uppercase;
+            color: var(--primary-black);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+       
+        .nav-links {
+            display: flex;
+            gap: 3.625rem;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-family: 'Roboto', sans-serif;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-link:hover{
+            color: #ea454c;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ea454c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link:focus::after {
+            width: 100%;
+        }
+
+        .buy-now-btn {
+            background-color: #40BFA8;
+            color: white;
+            border: none;
+            padding: 0.75rem 3.125rem;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .buy-now-btn:hover {
+            background-color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px black;
+        }
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+
+        .nutrition-info {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-top-left-radius: 200px;
+            border-bottom-left-radius: 200px;
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: 0 0 10px black, 0 0 20px black;
+            display: flex;
+            justify-content: space-evenly;
+        }
+       
+        @property --angle1{
+            syntax: "<percentage>";
+            initial-value: 0%;
+            inherits: false;
+        }
+        @property --angle2{
+            syntax: "<percentage>";
+            initial-value: 0%;
+            inherits: false;
+        }
+        @property --angle3{
+            syntax: "<percentage>";
+            initial-value: 0%;
+            inherits: false;
+        }
+        .circle{
+            
+            border:2px solid black;
+            border-radius: 50%;
+            height: 300px;
+            width: 300px;
+            background: conic-gradient(#61ad78 0% var(--angle1),#e79420 var(--angle1) var(--angle2),#bd5142 var(--angle2) var(--angle3));
+            padding: 1mm;
+            position: relative;
+            animation: cirshow 3s forwards 0.1s 1 ease ;
+        }
+        @keyframes cirshow {
+            from{
+                --angle1:0%;--angle2:0%;--angle3:0%;
+            }
+            to{
+                --angle1:{{Prot}}%;--angle2:{{mid}}%;--angle3:100%;
+            }
+        }
+        .circle:active{
+            transform: scale(1.1);
+            box-shadow: 0 0 10px aqua, 0 0 20px aqua, 0 0 40px aqua, 0 0 80px aqua, 0 0 160px aqua;
+            animation: spin 3s ease  infinite  forwards;
+            background: conic-gradient(#0080007b 0% {{Prot}}%,orange {{Prot}}% {{mid}}%,brown {{mid}}% 100%);
+            transition: all 2s;
+        }
+        @keyframes spin {
+            0%,100%{transform: rotate(0deg);}
+            50%{transform: rotate(360deg);}
+        }
+
+        .calorie-info {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+        }
+
+        .macro-breakdown {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .macro-item {
+            text-align: center;
+        }
+
+        .macro-percentage {
+            font-size: 40px;
+            font-weight: 800;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--text-color-light);
+            margin-bottom: 15px;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .macro-percentage:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .carbs-percentage { background-color: var(--accent-color-1); }
+        .protein-percentage { background-color: var(--accent-color-2); }
+        .fat-percentage { background-color: var(--accent-color-3); }
+
+        .macro-label {
+            font-size: 30px;
+            font-weight: 600;
+        }
+        .macro-label:hover{
+            transform: translateY(-2px);
+            transition: 1s;
+        }
+        #macro1
+        {
+            color: var(--accent-color-1);
+        }
+        #macro2
+        {
+            color: var(--accent-color-2);
+        }
+        #macro3
+        {
+            color: var(--accent-color-3);
+        }
+        .hero-subtitle {
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.5);
+            margin-top: 60px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: black;
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+
+        .budget-options,
+        .cuisine-selection {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .budget-option {
+            
+            color: var(--text-color-light);
+            border: none;
+            padding: 18px 36px;
+            font-size: 18px;
+            font-weight: 600;
+            width: 20%;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .budget-option:nth-child(1){
+           background: linear-gradient(90deg, #B83DFF ,#2C6BFE); 
+        }
+        .budget-option:nth-child(2){
+            background: linear-gradient(-90deg, #ff0000 ,#FF0084); 
+         }
+         .budget-option:nth-child(3){
+            background: linear-gradient(90deg, #00FFD0 ,#00FF66); 
+         }
+        .budget-option span:nth-child(3){
+           opacity: 0;
+        }
+        .budget-option:nth-child(1):hover{
+            animation: change1 0.03s ease  1  forwards;
+         }
+         .budget-option:nth-child(2):hover{
+            animation: change2 0.03s ease  1 forwards ;
+          }
+          .budget-option:nth-child(3):hover{
+            animation: change3 0.03s ease  1 forwards ;
+          }
+        
+        .budget-option input[type="radio"]
+        {
+            display: none;
+        }
+       
+        .budget-option input[type="radio"]:checked+span+span:nth-child(3){
+           opacity: 1;
+           color: white;
+           
+           
+        }
+        .budget-option:hover{
+            background-color: var(--secondary-color);
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .cuisine-dropdown {
+            width: 100%;
+            max-width: 400px;
+            padding: 18px;
+            font-size: 18px;
+            border: 2px solid var(--primary-color);
+            border-radius: 6px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            appearance: none;
+        }
+
+        .cuisine-dropdown:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(5, 142, 141, 0.3);
+        }
+
+        .meal-plan-section {
+            background-color: var(--background-color);
+            border-radius: 12px;
+            padding: 60px;
+            margin-top: 60px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .meal-plan-title {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .meal-types {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .meal-type {
+            color: var(--text-color-light);
+            border: none;
+            padding: 18px 36px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.1s;
+            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .meal-type:nth-child(1){
+            background: linear-gradient(90deg, #B83DFF ,#2C6BFE); 
+         }
+         .meal-type:nth-child(2){
+             background: linear-gradient(90deg, #FF0084 ,#ff0000); 
+          }
+          .meal-type:nth-child(3){
+             background: linear-gradient(90deg, #00FFD0 ,#00FF66); 
+          }
+        .meal-type:nth-child(4){
+            background: linear-gradient(90deg, #81f3de,#1e7b8a);
+        }
+        .meal-type span:nth-child(3){
+           opacity: 0;
+        }
+        .meal-type:nth-child(1):hover{
+            animation: change1 0.03s ease  1  forwards;
+         }
+         .meal-type:nth-child(2):hover{
+            animation: change2 0.03s ease  1 forwards ;
+          }
+          .meal-type:nth-child(3):hover{
+            animation: change3 0.03s ease  1 forwards ;
+          }
+        .meal-type:nth-child(4):hover{
+            animation: change4 0.03s ease-in-out alternate  1  forwards;
+        }
+        
+        @keyframes change1 {
+            50%{
+            background: linear-gradient(90deg,#000 25%, #B83DFF 80%,#2C6BFE 250%); 
+
+            }
+            100%{
+            background: linear-gradient(90deg, #000 ,#B83DFF ); 
+            }
+        }
+        @keyframes change2 {
+            50%{
+                background: linear-gradient(90deg,#000 25%, #FF0084 80%,#ff0000 250%); 
+    
+                }
+            100%{
+                background: linear-gradient(90deg, #000 ,#FF0084); 
+
+            }
+        }
+        @keyframes change3 {
+            100%{
+                background: linear-gradient(-90deg, #00FFD0 ,#000); 
+
+            }
+        }
+        @keyframes change4 {
+            100%{
+            background: linear-gradient(-90deg, #81f3de,#000);
+            }
+        }
+        .meal-type:hover
+         {
+            outline: none;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+        }
+        .meal-type input[type="radio"]{
+            display: none;
+        }
+       
+        .meal-type input[type="radio"]:checked+span+span:nth-child(3) {
+           opacity: 1;
+           color: white;
+        }
+        input[type="radio"]:checked + .meal-type{
+            background: #000;
+        }
+        
+        .continue-btn {
+            display: block;
+            width: 22.0625rem;
+            margin: 5rem auto 2rem;
+            padding: 1.25rem 0;
+            background-color: var(--primary-color);
+            color: white;
+            border: 1px solid white;
+            border-radius: 0.625rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover,
+        .continue-btn:focus {
+            background-color: var(--secondary-color);
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: #000000;
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-subtitle {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .budget-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .budget-option {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .meal-plan-section {
+                padding: 40px;
+            }
+
+            .meal-plan-title {
+                font-size: 32px;
+            }
+        }
+        .nutrition-lines{
+            display: flex;
+            flex-direction: column;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-15px); }
+           }
+           #loading:focus{
+            background-color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px black;
+            border: 2px solid white;
+           }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="YOUR_INTEGRITY_HASH" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+
+</head>
+<body>
+    <div class="nutrition-plan">
+        {% if response %}
+        <br><br><br><br><br>
+        <div style="display: flex; justify-content: space-between;">
+            <button class="buy-now-btn" onclick="pdf()">Download as PDF <br> <i class="fas fa-download fa-3x" style="color: white;font-size: small;"></i></button>
+            <button class="buy-now-btn" id="loading" onclick="loading();location.reload();">Another Plan?</button>
+            <button class="buy-now-btn" onclick="wapdf()">Share <br> <i class="fas fa-share-alt fa-2x fa-rotate-0" style="color: white;font-size: small;"></i></button>
+        </div>
+        <section class="meal-plan-section"  id="pdfdiv" >
+            <h2 class="meal-plan-title">Your Delightful Meal Plan Awaits</h2>
+            {{response|safe}}
+        </section>
+        <br>
+        <br><br>
+        {% endif %}
+        <section class="hero-section">
+            <img src="{% static '/img/alarm-clock-towel-dumbbells_23-2147735034.avif' %}" alt="Healthy food background" class="hero-image">
+            <header class="header" role="banner">
+                <div class="nav-content">
+                    <a class="logo" aria-label="Arogya home">arogya</a>
+                    <nav role="navigation" aria-label="Main navigation">
+                        <ul class="nav-links">
+                            <li><a href="/login" class="nav-link">Home</a></li>
+                            <li><a href="/about" class="nav-link">About</a></li>
+                            <li><a href="/contact" class="nav-link">Contact</a></li>
+                            <li><a href="/Abot" class="nav-link">Arogya Bot</a></li>
+                <li><a href="/nearest-gyms" class="nav-link">Nearest Gyms</a></li>
+                <li><a onclick="window.history.back()" class="nav-link">Back</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <button type="button" onclick="window.location.href='/purchase';" class="buy-now-btn" aria-label="Buy now">Shop Now</button>
+            </header><br>
+            <h1 class="hero-title">Introducing Your Customized Nutrition Plan</h1>
+            <div class="nutrition-info">
+                <div><div class="circle"></div></div>
+                <div class="nutrition-lines">
+                    <p class="calorie-info">{{per}}% of your maintenance calorie</p>
+                    <p class="calorie-info">{{calorie|floatformat:3}}×{{per}}% = {{ccalorie|floatformat:3}} kcal </p>
+                    <div class="macro-item">
+                        <div class="macro-label" id="macro1">{{Carbo}}% Carbohydrates</div>
+                    </div>
+                    <div class="macro-item">
+                        <div class="macro-label" id="macro2">{{Prot}}% Protein</div>
+                    </div>
+                    <div class="macro-item">
+                        <div class="macro-label" id="macro3">{{Fat}}% Fat</div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            <h2 class="hero-subtitle">Grow bigger, stronger, better</h2>
+        </section>
+        <form method="post" >
+        {% csrf_token %}
+        <section class="budget-section">
+            <h2 class="section-title">What is your preferred budget for the meal plan?</h2>
+            <div class="budget-options" onclick="submit()">
+                <label for="Expensive" class="budget-option"><input type="radio" checked id="Expensive" required name="budget" value="Expensive"><span>Expensive</span><span>✔</span></label>
+                <label for="Average" class="budget-option"><input type="radio" id="Average" name="budget" value="Average"><span>Average</span><span>✔</span></label>
+                <label for="Low" class="budget-option"><input type="radio" id="Low" name="budget" value="Low"><span>Low</span><span>✔</span></label>
+            </div>
+        </section>
+
+        <section class="cuisine-section">
+            <h2 class="section-title">Which cuisine would you prefer for your meal plan?</h2>
+            <div class="cuisine-selection">
+                <select class="cuisine-dropdown" required onchange="submit();loading();" name="state" aria-label="Select a cuisine">
+                    <option value="" disabled selected>Select a state in india</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+  <option value="Assam">Assam</option>
+  <option value="Bihar">Bihar</option>
+  <option value="Chhattisgarh">Chhattisgarh</option>
+  <option value="Goa">Goa</option>
+  <option value="Gujarat">Gujarat</option>
+  <option value="Haryana">Haryana</option>
+  <option value="Himachal Pradesh">Himachal Pradesh</option>
+  <option value="Jharkhand">Jharkhand</option>
+  <option value="Karnataka">Karnataka</option>
+  <option value="Kerala">Kerala</option>
+  <option value="Madhya Pradesh">Madhya Pradesh</option>
+  <option value="Maharashtra">Maharashtra</option>
+  <option value="Manipur">Manipur</option>
+  <option value="Meghalaya">Meghalaya</option>
+  <option value="Mizoram">Mizoram</option>
+  <option value="Nagaland">Nagaland</option>
+  <option value="Odisha">Odisha</option>
+  <option value="Punjab">Punjab</option>
+  <option value="Rajasthan">Rajasthan</option>
+  <option value="Sikkim">Sikkim</option>
+  <option value="Tamil Nadu">Tamil Nadu</option>
+  <option value="Telangana">Telangana</option>
+  <option value="Tripura">Tripura</option>
+  <option value="Uttar Pradesh">Uttar Pradesh</option>
+  <option value="Uttarakhand">Uttarakhand</option>
+  <option value="West Bengal">West Bengal</option>
+                </select>
+            </div>
+        </section>
+
+        
+        <button type="submit" style="display: none;" id="ctn" class="continue-btn">continue</button>
+        </form>
+    </div>
+
+    
+</body>
+<script>
+    function submit()
+    {
+        document.getElementById("ctn").click()
+    }
+    function loading()
+    {
+        document.getElementById('loading').innerHTML='<br><div style="display: flex; justify-content: center; align-items: center; height: 40px;"><div style="width: 10px; height: 10px; border-radius: 50%; background-color: white; margin: 0 5px; animation: bounce 0.6s alternate infinite;"></div><div style="width: 10px; height: 10px; border-radius: 50%; background-color: white; margin: 0 5px; animation: bounce 0.6s alternate infinite; animation-delay: 0.2s;"></div><div style="width: 10px; height: 10px; border-radius: 50%; background-color: white; margin: 0 5px; animation: bounce 0.6s alternate infinite; animation-delay: 0.4s;"></div></div>';
+    }
+    function pdf()
+    {
+        
+        html2canvas(document.getElementById('pdfdiv'), {
+            scale: 2, // Increase scale for better quality
+            useCORS: true, // Enable CORS if you have images from other domains
+        }).then(function(canvas) {
+            var imgData = canvas.toDataURL('image/png');
+            var pdf = new jsPDF('p', 'mm', 'a4'); // Create a new jsPDF instance
+        
+            var imgWidth = 210; // A4 width in mm
+            var pageHeight = 295; // A4 height in mm
+            var imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate the height of the image
+            var heightLeft = imgHeight;
+        
+            var position = 0;
+        
+            // Add the first image to the PDF
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        
+            // Loop to add additional pages if needed
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+        
+            // Save the PDF
+            pdf.save('Arogya_diet_planner.pdf');
+        });
+
+    }
+    function wapdf()
+    {
+    
+       
+       html2canvas(document.getElementById('pdfdiv'), { 
+        scale: 10, // Increase scale for better quality 
+        useCORS: true // Enable CORS if you have images from other domains 
+    }).then(function(canvas) {
+        var imgData = canvas.toDataURL('image/png');
+        var pdf = new jsPDF('p', 'mm', 'a4'); // Create a new jsPDF instance
+        var imgWidth = 210; // A4 width in mm
+        var pageHeight = 295; // A4 height in mm
+        var imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate the height of the image
+        var heightLeft = imgHeight;
+        var position = 0; // Add the first image to the PDF
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight; // Loop to add additional pages if needed
+    
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+    
+        // Convert the PDF to Blob
+        var pdfBlob = pdf.output('blob');
+    
+        // Create a file object from the Blob
+        var file = new File([pdfBlob], 'Arogya_diet_planner.pdf', { type: 'application/pdf' });
+    
+        // Check if the Web Share API is supported
+        if (navigator.share) {
+            navigator.share({
+                files: [file],
+                title: 'Check out my PDF',
+                text: 'Here is the PDF I wanted to share with you.'
+            })
+            .then(() => console.log('Share successful'))
+            .catch((error) => console.error('Error sharing:', error));
+        } else {
+            console.error('Web Share API is not supported in this browser.');
+        }
+    });
+        
+    }
+</script>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arogya Fitness Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #000;
+            --secondary-color: #191919;
+            --accent-color: #7f7f7f;
+            --background-color: #fff;
+            --hero-background: #f4f6f5;
+            --spacing-unit: 8px;
+            --border-radius: 10px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.5;
+            color: var(--primary-color);
+            background: var(--background-color);
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .product-showcase {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding-bottom: calc(var(--spacing-unit) * 14);
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 10);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-logo {
+            font: 700 20px/1.3 'Poppins', sans-serif;
+            letter-spacing: 5.4px;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 5);
+        }
+
+        .nav-link {
+            font: 400 20px/1.2 'Roboto', sans-serif;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+            padding: var(--spacing-unit);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: #ea454c;
+            outline: none;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ea454c;
+            transition: width 0.3s ease;
+        }
+  
+        .nav-link:hover::after,
+        .nav-link:focus::after {
+            width: 100%;
+        }
+        .hero-section {
+            margin: calc(var(--spacing-unit) * 5) calc(var(--spacing-unit) * 10);
+            padding: calc(var(--spacing-unit) * 7.5);
+            background: var(--hero-background);
+            border-radius: calc(var(--spacing-unit) * 3);
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 7.5);
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font: 900 64px/1.1 'Poppins', sans-serif;
+            margin-bottom: calc(var(--spacing-unit) * 5);
+        }
+
+        .hero-subtitle {
+            font: 700 24px/1.5 'Poppins', sans-serif;
+        }
+
+        .hero-image {
+            flex: 1;
+            max-width: 50%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .products-section {
+            padding: 0 calc(var(--spacing-unit) * 10);
+        }
+
+        .section-title {
+            font: 900 33px/1 'Poppins', sans-serif;
+            letter-spacing: 1.98px;
+            margin-bottom: calc(var(--spacing-unit) * 5);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: calc(var(--spacing-unit) * 4);
+            margin-bottom: calc(var(--spacing-unit) * 6);
+        }
+
+        .product-card {
+            background: var(--background-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .product-card:hover,
+        .product-card:focus-within {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: calc(var(--spacing-unit) * 2);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .product-name {
+            font: 600 20px/1.2 'Poppins', sans-serif;
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-unit);
+        }
+
+        .product-price {
+            font: 700 24px/1 'Poppins', sans-serif;
+            color: var(--secondary-color);
+        }
+
+        .explore-link {
+            font: 500 15px/1.5 'Poppins', sans-serif;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .explore-link:hover,
+        .explore-link:focus {
+            color: var(--primary-color);
+            outline: none;
+        }
+
+        @media (max-width: 991px) {
+            .nav-header {
+                flex-direction: column;
+                padding: calc(var(--spacing-unit) * 2);
+                gap: calc(var(--spacing-unit) * 2);
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .hero-section {
+                flex-direction: column;
+                margin: calc(var(--spacing-unit) * 2);
+                padding: calc(var(--spacing-unit) * 4);
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-image {
+                max-width: 100%;
+            }
+
+            .products-section {
+                padding: calc(var(--spacing-unit) * 2);
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+        }
+        .vani{
+            animation: vv both;
+            animation-timeline: view(75% 25%);
+           }
+           @keyframes vv{
+            from{
+                opacity: 0;
+                transform: translateY(200px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px) scale(1);
+            }            
+           }
+           
+           .show{
+            animation: ss 2s   1 ease ;
+           }
+           @keyframes ss{
+            from{
+                opacity: 0;
+                transform: translateY(50px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px);
+            }            
+           }
+           .show1{
+            animation: sss 2s   1 ease ;
+           }
+           @keyframes sss{
+            from{
+                opacity: 0;
+                transform: translateX(-50px);
+                
+            } 
+            to{
+                opacity: 1;
+                transform: translateX(0px);
+            }            
+           }
+           .show2{
+            animation: ssss 2s   1 ease ;
+           }
+           @keyframes ssss{
+            from{
+                opacity: 0;
+                transform: translateX(50px);
+                
+            } 
+            to{
+                opacity: 1;
+                
+            }            
+           }
+    </style>
+</head>
+<body>
+    <main class="product-showcase">
+        <nav class="nav-header" role="navigation" aria-label="Main navigation">
+            <a href="/admin" class="brand-logo show1" aria-label="Arogya home">arogya</a>
+            <div class="nav-links show2">
+                <a href="/login" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/Abot" class="nav-link">Arogya Bot</a>
+                <a href="/nearest-gyms" class="nav-link">Nearest Gyms</a>
+                <a onclick="window.history.back()" class="nav-link">Back</a>
+            </div>
+        </nav>
+
+        <section class="hero-section">
+            <div class="hero-content show1">
+                <h1 class="hero-title">LET'S<br>EXPLORE<br>OUR<br>PRODUCTS.</h1>
+                <p class="hero-subtitle">Let's dive into our collection and discover what's next!</p>
+            </div>
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/803ad732509222ed5f83d939070db91e577f06bef09ddfe1c7c6bc2cdb79671f?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Featured fitness equipment" class="hero-image show2">
+        </section>
+
+        <section class="products-section" aria-labelledby="new-arrivals">
+            <h2 id="new-arrivals" class="section-title show2">NEW ARRIVALS</h2>
+            <div class="product-grid">
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b64cc681a3f140073c40bd8a6fbe701273970fff397b83997fcb8c9833fdf760?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Protein Powder container" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">Protein Powder</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 3999 rupees">₹3999</span>
+                    </div>
+                </article>
+
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/9467374f5aa5fefed6b0e83b17b7377f15a267778d0f54b34f6986b249bb839c?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Sports Water Bottle" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">Water Bottle</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 299 rupees">₹299</span>
+                    </div>
+                </article>
+
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/242044857b380d73f12b183161fa3370cfc78daaaa15a06b970856169aeff27c?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Fitness T-Shirt" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">T-Shirt</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 350 rupees">₹350</span>
+                    </div>
+                </article>
+
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1010a10dc491764f00a54145b3295cae447d75d428e78b632122ead4ce5936b4?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Set of Dumbbells" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">Dumbbells</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 775 rupees">₹775</span>
+                    </div>
+                </article>
+
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4a7319dc31ce185a07e179c7824729a2aa3e005c5cc0a50ff0d5f756502448c6?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Premium Exercise Equipment" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">Shoes</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 7999 rupees">₹7999</span>
+                    </div>
+                </article>
+
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/75b731c14405b11a6cf152d3845815aba887ca1e4bf2a8d0a55cb2eb64609eb9?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Fitness Gear" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">Creatine Powder</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 999 rupees">₹999</span>
+                    </div>
+                </article>
+
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/77d3d1d7c64b84d6b31d77927eb5697c7e591df2f44de6466b974b55bf3e4781?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Athletic Sweat Pants" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">Sweat Pant</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 499 rupees">₹499</span>
+                    </div>
+                </article>
+
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/0f6193ccff1e4de16bcf615ecf90753c6d0acdb4df3ee87e8d595a2274ef5cc3?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Kettle Bell Weight" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">Kettle Bell</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 699 rupees">₹699</span>
+                    </div>
+                </article>
+
+                <article class="product-card vani">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7826e721231473aefea8a10867c91003605961350bb6a4a2934004bb160f125f?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Athletic Wrist Band" class="product-image">
+                    <div class="product-info">
+                        <div class="product-details">
+                            <h3 class="product-name">Wrist Band</h3>
+                            <a href="#" class="explore-link">Explore Now!</a>
+                        </div>
+                        <span class="product-price" aria-label="Price: 299 rupees">₹299</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

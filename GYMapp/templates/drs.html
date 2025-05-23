@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors List</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="YOUR_INTEGRITY_HASH" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+</head>
+
+    
+    <body style="background-color:black; color: aqua; overflow-y: scroll; height: 100vh;">
+        <header class="header">
+            <nav class="nav-links show1" aria-label="Main navigation">
+                <span class="brand-logo">arogya</span>
+                <a href="/login" class="nav-link" aria-current="page">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/Abot" class="nav-link">Arogya Bot</a>
+                <a href="/nearest-gyms" class="nav-link">Nearest Gyms</a>
+            </nav>
+            <button class="cta-button show1" onclick="window.location.href='/helpers'"   >Back</button>
+        </header><br><br><br><br><hr style="border-color: #00FFFF;">
+        <h1 style="color:aqua;" class="show1">Currently Available Experts [Visiting Time:- 9:00 to 18:30]</h1><hr style="border-color: #00FFFF;">
+     
+        <!-- <h2 style="color:white;">Doctor Details</h2> -->
+       
+      
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+        {% for helper in helpers %}
+        {%if "Now" in helper.availability  %}
+            <div class="card vani" style="width: 300px; height:fit-content; border: 1px solid aqua; margin: 50px; padding: 10px; color: aqua;border-radius:14px;">
+            <img src="{% if helper.dr_image %} {{helper.dr_image.url}} {% else %} {% static '/img/OIP (2).jpg' %} {% endif %}" alt="{{helper.dr_name}}" style="width: 100%; height: 300px;border-radius:14px">
+            <center><h3 style="color: white;">{{helper.dr_name}} </h3></center>
+            
+            <p><strong>Specialty: </strong>{{helper.specialty}}</p>
+            <p><strong>Availability: </strong>{{helper.availability}}</p>
+            <p><strong class="button" onclick="window.open('https://wa.me/+91{{helper.dr_wa}}/?text=*_Hello_* %0a> _I am from *Arogya Diet Planner website*_ %0a', '_blank');" title="Click here to send msg in whatsapp"><i class="fab fa-whatsapp fa-lg icon"></i> </strong> +91 {{helper.dr_wa}} </p>
+            <p><strong class="button" onclick="window.open('https://mail.google.com/mail/?view=cm&fs=1&to={{helper.dr_email}}&su=Msg from Arogya Diet Planner website&body=Hello, I am from Arogya Diet Planner website,%0a', '_blank');" title="Click here to send msg in email"><i class="far fa-envelope fa-lg icon"></i></strong>{{helper.dr_email}} </p>
+            
+        </div>
+            {%endif%}
+            {%empty%}
+            <h2 class="show">There is no Experts are Available</h2>
+        {% endfor %}
+        </div>
+       {%if helpers%}
+      <br>
+        <p style="color:aqua;">Please contact the Experts's office directly to schedule an appointment.</p>
+       </body>
+       {%endif%}
+<style>
+
+    .vani{
+        animation: vv both;
+        animation-timeline: view(75% 25%);
+       }
+       @keyframes vv{
+        from{
+            opacity: 0;
+            transform: translateY(200px) scale(0.3);
+        } 
+        to{
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+        }            
+       }
+       
+       .show{
+        animation: ss 2s   1 ease ;
+       }
+       @keyframes ss{
+        from{
+            opacity: 0;
+            transform: translateY(50px) scale(0.3);
+        } 
+        to{
+            opacity: 1;
+            transform: translateY(0px);
+        }            
+       }
+       .show1{
+        animation: sss 2s   1 ease ;
+       }
+       @keyframes sss{
+        from{
+            opacity: 0;
+            transform: translateX(-50px);
+            
+        } 
+        to{
+            opacity: 1;
+            transform: translateX(0px);
+        }            
+       }
+       .show2{
+        animation: ssss 2s   1 ease ;
+       }
+       @keyframes ssss{
+        from{
+            opacity: 0;
+            transform: translateX(50px);
+            
+        } 
+        to{
+            opacity: 1;
+            
+        }            
+       }
+
+    .icon{
+        transform: translateY(2px);
+        transition: all 0.2s;
+        background: transparent;
+    }
+    .icon:hover {
+        transform: translateY(0px);
+        text-shadow:  0 0 10px aqua, 0 0 20px aqua, 0 0 40px aqua, 0 0 80px aqua, 0 0 160px aqua ;
+    }
+    
+    p{
+        display: flex;
+        gap: 10px;
+    }
+    .header {
+        background-color: #4A90E2;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        width: 98%;
+        top: 0;
+        transform: translateX(-10px);
+        z-index: 100;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+        font-size: 1.25rem;
+
+    }
+    .brand-logo {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        padding: 0.5rem 1rem;
+        color: #000000;
+    }
+
+    .nav-link {
+        color: black;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 1s ease;
+        position: relative;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus {
+        color:#00ffff;
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: #00ffff;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link:focus::after {
+        width: 100%;
+    }   
+    .cta-button {
+        color: black;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: 2px solid transparent;
+        background: linear-gradient(to right, #00FFFF 50%, #4A90E2 50%);
+        background-size: 200% 100%;
+        background-position: right bottom;        
+        transition: all 1s ease;
+        overflow: hidden;
+    }
+
+    .cta-button:hover {
+        transform: rotateZ(0deg) translateY(-2px);
+        color: #ffff;
+        border: 2px solid aqua;
+        border-radius: 40px;
+        background-position: left bottom;
+        }
+        .cta-button:active
+        { transform: rotateZ(0deg) translateY(2px);}
+
+</style>
+</html>

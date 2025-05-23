@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check your email confirmation page">
+    <title>Check Email - Arogya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Poppins:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --text-gray: #EDE7E7;
+            --focus-outline: 2px solid #4A90E2;
+            --transition-speed: 0.2s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .page-wrapper {
+            background-color: var(--primary-black);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            align-items: center;
+        }
+
+        .background-image {
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 1;
+        }
+
+        .header {
+            position: relative;
+            background-color: var(--primary-white);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 5rem;
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .brand-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            color: var(--primary-black);
+        }
+
+        .nav-link {
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 400;
+            position: relative;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .nav-link:hover {
+            color: #dc3545;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ea454c;
+            transition: width 0.3s ease;
+        }
+  
+        .nav-link:hover::after,
+        .nav-link:focus::after {
+            width: 100%;
+        }
+        .cta-button {
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.625rem 2rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .cta-button:hover {
+            background-color: #333333;
+        }
+
+        .content-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 2rem;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .email-title {
+            color: var(--primary-white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.36px;
+            margin-bottom: 1.5rem;
+        }
+
+        .email-message {
+            color: var(--text-gray);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        @media screen and (min-width: 1440px) {
+            .header {
+                padding: 0.75rem 6.25rem;
+            }
+
+            .nav-menu {
+                gap: 2.5rem;
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            .header {
+                padding: 0.75rem 3rem;
+            }
+
+            .nav-menu {
+                gap: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1.5rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .cta-button {
+                padding: 0.625rem 1.5rem;
+            }
+
+            .email-title {
+                font-size: 2rem;
+            }
+
+            .email-message {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 8px;
+            z-index: 100;
+            transition: top var(--transition-speed) ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+            outline: var(--focus-outline);
+        }
+        .vani{
+            animation: vv both;
+            animation-timeline: view(75% 25%);
+           }
+           @keyframes vv{
+            from{
+                opacity: 0;
+                transform: translateY(200px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px) scale(1);
+            }            
+           }
+           
+           .show{
+            animation: ss 2s   1 ease ;
+           }
+           @keyframes ss{
+            from{
+                opacity: 0;
+                transform: translateY(50px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px);
+            }            
+           }
+           .show1{
+            animation: sss 2s   1 ease ;
+           }
+           @keyframes sss{
+            from{
+                opacity: 0;
+                transform: translateX(-50px);
+                
+            } 
+            to{
+                opacity: 1;
+                transform: translateX(0px);
+            }            
+           }
+           .show2{
+            animation: ssss 2s   1 ease ;
+           }
+           @keyframes ssss{
+            from{
+                opacity: 0;
+                transform: translateX(50px);
+                
+            } 
+            to{
+                opacity: 1;
+            }            
+           }
+           .email-icon{
+            opacity: 0;
+            text-decoration: none;
+            color: white;
+            animation-delay: 1s;
+            animation-fill-mode: forwards;
+            cursor: default;
+            transition: all 2s;
+           }
+           .email-icon:hover{
+            color: red;
+            text-transform:capitalize;
+           }
+           .email-icon:active{
+            opacity: 0.1;
+           
+           }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="page-wrapper">
+        <div class="main-container">
+            <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/341dd835c09628ff530c0853cd414cbd32eb3a89f13f433aa2fee30cc0df897e?placeholderIfAbsent=true&apiKey=ce7a5d7cf9064c42b08e595aeb95f2c1"
+                class="background-image"
+                alt=""
+                aria-hidden="true"
+            />
+            <header class="header" role="banner">
+                <nav class="nav-menu show1" role="navigation" aria-label="Main navigation">
+                    <div class="brand-logo" aria-label="Arogya logo">arogya</div>
+                    <a href="/login" class="nav-link">Home</a>
+                    <a href="/about" class="nav-link">About</a>
+                    <a href="/contact" class="nav-link">Contact</a>
+                    <a href="/Abot" class="nav-link">Arogya Bot</a>
+                <a href="/nearest-gyms" class="nav-link">Nearest Gyms</a>
+                <a onclick="window.history.back()" class="nav-link">Back</a>
+                </nav>
+                <button type="button" onclick="window.location.href='/purchase';" class="cta-button show2" aria-label="Buy Now">Shop Now</button>
+            </header>
+            <main id="main-content" class="content-container" role="main">
+                <h1 class="email-title show1">Check your <span class="email-icon show2" id="email-icon" onmouseover="change();" onmouseleave="unchange();"  onclick="window.open('https://mail.google.com/','_blank');" >Email</span></h1>
+                <p class="email-message show2">We've sent a reset link to your email.</p>
+            </main>
+        </div>
+    </div>
+</body>
+<script>
+    function change(){
+        document.getElementById("email-icon").innerText="Gmail";
+    }
+    function unchange(){
+        document.getElementById("email-icon").innerText="Email";
+    }
+    
+</script>
+</html>

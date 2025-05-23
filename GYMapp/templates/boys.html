@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete your profile and choose your body type">
+    <title>Profile Completion - Arogya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700&family=Public+Sans:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --accent-red: #833636;
+            --border-gray: #D8DADC;
+            --card-bg: #1B1B1B;
+            --dropdown-bg: rgba(255, 255, 255, 0.83);
+            --focus-outline: rgba(131, 54, 54, 0.5);
+            --hover-red: #6a2c2c;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background-color: var(--primary-white);
+            padding: 1rem 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 3.625rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 5.4px;
+            text-transform: uppercase;
+            color: var(--primary-black);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+       
+        .nav-links {
+            display: flex;
+            gap: 3.625rem;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-family: 'Roboto', sans-serif;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-link:hover{
+            color: #ea454c;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ea454c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link:focus::after {
+            width: 100%;
+        }
+
+        .buy-now-btn {
+            background-color: #40BFA8;
+            color: white;
+            border: none;
+            padding: 0.75rem 3.125rem;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .buy-now-btn:hover,
+        .buy-now-btn:focus {
+            background-color: var(--hover-red);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .main-container {
+            max-width: 90rem;
+            margin: 7rem auto 0;
+            padding: 2rem 1.25rem;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.36px;
+            text-align: center;
+            margin: 3.5rem 0;
+            color: var(--primary-white);
+            position: relative;
+        }
+
+        
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 9.375rem 1fr;
+            gap: 1.25rem;
+            margin-bottom: 2.625rem;
+            max-width: 46.875rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-label {
+            font-family: 'Public Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.32px;
+            align-self: center;
+        }
+
+        .form-input {
+            background-color: var(--primary-black);
+            border: 1px solid var(--border-gray);
+            border-radius: 0.625rem;
+            padding: 2.125rem 1rem;
+            color: var(--primary-white);
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-red);
+            box-shadow: 0 0 0 3px var(--focus-outline);
+        }
+
+        .form-input:hover {
+            border-color: var(--accent-red);
+        }
+
+        .body-types {
+            display: flex;
+            gap: 2.5625rem;
+            max-width: 44.75rem;
+            margin-left: 10% ;
+            width: 100vh;
+        }
+
+        .body-type-option {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .body-type-label {
+            background-color: var(--card-bg);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0.625rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .body-type-label:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px var(--shadow-color);
+        }
+
+        .body-type-option:checked + .body-type-label {
+            border-color: var(--accent-red);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px var(--shadow-color);
+        }
+
+        .body-type-option:focus + .body-type-label {
+            box-shadow: 0 0 0 3px var(--focus-outline);
+        }
+
+        .body-type-text {
+            font-family: 'Public Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.32px;
+        }
+
+        .body-type-image {
+            transform: translateX(20px);
+            width: 10.5rem;
+            height: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .body-type-label:hover .body-type-image {
+            transform: translateX(20px) scale(1.05);
+        }
+
+        .activity-section {
+            margin: 6.625rem auto 0;
+            max-width: 45.8125rem;
+        }
+
+        .activity-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 3.0625rem;
+            position: relative;
+        }
+
+        .activity-select {
+            flex-grow: 1;
+            background-color: var(--dropdown-bg);
+            border: none;
+            border-radius: 14px;
+            padding: 1rem;
+            font-size: 1.0625rem;
+            font-weight: 500;
+            color: var(--primary-black);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance:none;
+            
+        }
+
+        .activity-select:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .activity-select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--focus-outline);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .continue-btn {
+            display: block;
+            width: 22.0625rem;
+            margin: 5rem auto 2rem;
+            padding: 1.25rem 0;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            border: 1px solid var(--primary-white);
+            border-radius: 0.625rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover,
+        .continue-btn:focus {
+            background-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+            border-color: var(--accent-red);
+            color: #000000;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent-red);
+            color: var(--primary-white);
+            padding: 8px;
+            z-index: 1001;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        @media (max-width: 64rem) {
+            .header {
+                padding: 1rem 2rem;
+            }
+
+            .nav-content {
+                gap: 2rem;
+            }
+
+            .nav-links {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 48rem) {
+            .header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1.25rem;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 1.25rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1.25rem;
+                text-align: center;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+
+            .body-type-label {
+                flex-direction: column;
+                gap: 1.25rem;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .activity-wrapper {
+                flex-direction: column;
+                gap: 1.25rem;
+            }
+
+            .continue-btn {
+                width: 100%;
+                max-width: 22.0625rem;
+            }
+
+            .section-title {
+                font-size: 1.875rem;
+            }
+
+            .form-label {
+                font-size: 1.5rem;
+            }
+
+            .body-type-text {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        .arrowicon{
+            position: absolute;
+            width: 50px;
+            height: 100%;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top-right-radius: 14px;
+            border-bottom-right-radius: 14px;
+            background-color: #b4b6b8;
+          }
+          .arrowicon i{
+            font-size: 25px;
+            color: black;
+            transition: all 0.2s;
+          }
+          .up{
+            transform: rotate(180deg);
+          }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header class="header" role="banner">
+        <div class="nav-content">
+            <a class="logo" aria-label="Arogya home">arogya</a>
+            <nav role="navigation" aria-label="Main navigation">
+                <ul class="nav-links">
+                    <li><a href="/login" class="nav-link">Home</a></li>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/contact" class="nav-link">Contact</a></li>
+                    <li><a href="/Abot" class="nav-link">Arogya Bot</a></li>
+                <li><a href="/nearest-gyms" class="nav-link">Nearest Gyms</a></li>
+                <li><a onclick="window.history.back()" class="nav-link">Back</a></li>
+                </ul>
+            </nav>
+        </div>
+        <button type="button" onclick="window.location.href='/purchase';" class="buy-now-btn" aria-label="Buy now">Shop Now</button>
+    </header>
+
+    <main id="main-content" class="main-container" role="main">
+        <h1 class="section-title">COMPLETE YOUR PROFILE</h1>
+        
+        <form method="POST" novalidate>
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="height" class="form-label">Height :</label>
+                <input type="number" id="height" name="height" class="form-input" 
+                       placeholder="Height in cm" required min="0" max="300" step="0.1"
+                       aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="weight" class="form-label">Weight :</label>
+                <input type="number" id="weight" name="weight" class="form-input"
+                       placeholder="Weight in kg" required min="0" max="500" step="0.1"
+                       aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="age" class="form-label">Age :</label>
+                <input type="number" id="age" name="age" class="form-input"
+                       placeholder="Age" required min="0" max="150"
+                       aria-required="true">
+            </div>
+
+            <h2 class="section-title">CHOOSE YOUR BODY TYPE</h2>
+            
+            <div class="body-types" role="radiogroup" aria-label="Body type selection">
+                <div>
+                    <input type="radio" id="slim" name="bodyType" value="slim" 
+                           class="body-type-option" required>
+                    <label for="slim" class="body-type-label">
+                        <span class="body-type-text">Slim</span>
+                        <img src="{% static '/img/slim boy.jpg' %}" alt="Slim body type illustration" 
+                             class="body-type-image" width="200" height="152">
+                    </label>
+                </div>
+                
+                <div>
+                    <input type="radio" id="average" name="bodyType" value="average" 
+                           class="body-type-option">
+                    <label for="average" class="body-type-label">
+                        <span class="body-type-text">Average</span>
+                        <img src="{% static '/img/avg boy.jpg' %}" alt="Average body type illustration" 
+                             class="body-type-image" width="200" height="152">
+                    </label>
+                </div>
+                
+                <div>
+                    <input type="radio" id="heavy" name="bodyType" value="heavy" 
+                           class="body-type-option">
+                    <label for="heavy" class="body-type-label">
+                        <span class="body-type-text">Heavy</span>
+                        <img src="{% static '/img/fat boy.jpg' %}" alt="Heavy body type illustration" 
+                             class="body-type-image" width="200" height="152">
+                    </label>
+                </div>
+            </div>
+
+            <div class="activity-section">
+                <div class="activity-wrapper">
+                    <label for="activity" class="form-label">Activity :</label>
+                    <select id="activity" name="activity" class="activity-select" onclick="show()"
+                            required aria-required="true">
+                            <option value="1.2">No Exercise</option>
+                            <option value="1.3">1 to 3 hours/week</option>
+                            <option value="1.5">4 to 6 hours/week</option>
+                            <option value="1.7">7 to 9 hours/week</option>
+                            <option value="1.9">10+ hours/week</option>
+                    </select>
+                    <div class="arrowicon">
+                        <i class="fa-solid fa-caret-down" id="icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="continue-btn">Continue</button>
+        </form>
+    </main>
+</body>
+<script>
+    function show()
+    {
+        document.getElementById("icon").classList.toggle("up");            
+    }
+  </script>
+</html>

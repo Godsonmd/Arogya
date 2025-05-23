@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Maya Aggerwal's Calorie Chart - Track your fitness goals">
+    <title>Calorie Chart | {{fullname}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&family=Inter:wght@500;600&family=Wellfleet&family=Quattrocento:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #020A16;
+            --text-white: #FFFFFF;
+            --text-black: #000000;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Roboto', sans-serif;
+            --transition-speed: 0.3s;
+            --border-radius: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            min-height: 100vh;
+            font-family: var(--font-primary);
+            color: var(--text-white);
+            line-height: 1.5;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+     
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .calorie-chart-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background-color: var(--text-white);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            width: 120%;
+            top: 0;
+            transform: translateX(-140px);
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            font-size: 1.25rem;
+
+        }
+
+        .brand-logo {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 0.5rem 1rem;
+            color: #000000;
+        }
+
+        .nav-link {
+            color: var(--text-black);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-speed) ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color:#dc3545;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ea454c;
+            transition: width 0.3s ease;
+        }
+  
+        .nav-link:hover::after,
+        .nav-link:focus::after {
+            width: 100%;
+        }
+        .cta-button {
+            background-color: var(--text-black);
+            color: var(--text-white);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .cta-button:hover {
+            background-color: #333;
+        }
+
+        .main-title {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .title-primary {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-secondary {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .macro-section {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .macro-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .macro-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .physique-section {
+            margin: 3rem 0;
+        }
+
+        .physique-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .physique-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .physique-radio {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .physique-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            transition: transform var(--transition-speed) ease;
+            
+        }
+        .physique-image:hover{
+            transform: scale(1.1);
+
+        }
+        .physique-radio:checked + .physique-image {
+            border: 3px solid var(--text-white);
+            transform: scale(1.05);
+        }
+
+        .activity-section {
+            margin: 3rem 0;
+        }
+
+        .activity-list {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .activity-option {
+            position: relative;
+        }
+
+        .activity-radio {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .activity-label {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-black);
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-label:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .activity-radio:checked + .activity-label {
+            background-color: rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 3rem auto;
+            padding: 1rem 2rem;
+            background-color: var(--text-white);
+            color: var(--text-black);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .stat-card,
+            .macro-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .physique-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+        }
+        .vani{
+            animation: vv both;
+            animation-timeline: view(75% 25%);
+           }
+           @keyframes vv{
+            from{
+                opacity: 0;
+                transform: translateY(200px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px) scale(1);
+            }            
+           }
+           
+           .show{
+            animation: ss 2s   1 ease ;
+           }
+           @keyframes ss{
+            from{
+                opacity: 0;
+                transform: translateY(50px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px);
+            }            
+           }
+           .show1{
+            animation: sss 2s   1 ease ;
+           }
+           @keyframes sss{
+            from{
+                opacity: 0;
+                transform: translateX(-50px);
+                
+            } 
+            to{
+                opacity: 1;
+                transform: translateX(0px);
+            }            
+           }
+           .show2{
+            animation: ssss 2s   1 ease ;
+           }
+           @keyframes ssss{
+            from{
+                opacity: 0;
+                transform: translateX(50px);
+                
+            } 
+            to{
+                opacity: 1;
+                
+            }            
+           }
+           .main-title h1:hover,.main-title h2:hover{
+               color:#00FF7F;
+               transition: 2s;
+               cursor: default;
+            }
+            .stat-card span:hover,.stat-card strong:hover{
+               color:#98FF98;
+            transition: 2s;
+            cursor: default;
+        }
+           .macro-item span:hover,.macro-item strong:hover{
+            color: aqua;
+            transition: 2s;
+            cursor: default;
+           }
+    </style>
+</head>
+<body>
+    <main class="calorie-chart-container">
+        <header class="header">
+            <nav class="nav-links show1" aria-label="Main navigation">
+                <span class="brand-logo">arogya</span>
+                <a href="/login" class="nav-link" aria-current="page">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/Abot" class="nav-link">Arogya Bot</a>
+                <a href="/nearest-gyms" class="nav-link">Nearest Gyms</a>
+                <a onclick="window.history.back()" class="nav-link">Back</a>
+            </nav>
+            <button class="cta-button show2" onclick="window.location.href='/purchase';" type="button">Shop Now</button>
+        </header>
+
+        <div class="main-title">
+            <h1 class="title-primary show">{{fullname}}'s</h1>
+            <h2 class="title-secondary show2">Calorie Chart</h2>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="stats-grid ">
+                <div class="stat-card show1">
+                    <span>Height</span>
+                    <strong>{{height}}cm</strong>
+                </div>
+                <div class="stat-card show">
+                    <span>Weight</span>
+                    <strong>{{weight}}kg</strong>
+                </div>
+                <div class="stat-card show2">
+                    <span>Age</span>
+                    <strong>{{age}}</strong>
+                </div>
+            </div>
+
+            <section class="macro-section">
+                <div class="macro-grid">
+                    <div class="macro-item show1">
+                        <span>Maintenance Calorie</span>
+                        <strong>{{calorie|floatformat:3}} kcal</strong>
+                    </div>
+                    <div class="macro-item show2">
+                        <span>Carbs</span>
+                        <strong>{{carbs|floatformat:1}} grams</strong>
+                    </div>
+                    <div class="macro-item show1">
+                        <span>Protein</span>
+                        <strong>{{protine|floatformat:1}} grams</strong>
+                    </div>
+                    <div class="macro-item show2">
+                        <span>Fat</span>
+                        <strong>{{fat|floatformat:1}} grams</strong>
+                    </div>
+                    <div class="macro-item show1">
+                        <span>BMR</span>
+                        <strong>{{bmr|floatformat:3}} kcal</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="physique-section vani">
+                <h3>Aim Physique</h3>
+                <div class="physique-grid">
+                    <label class="physique-option">
+                        <input type="radio" name="physique" value="slim" class="physique-radio" required>
+                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/81ddb970aa733b0fee3bd1195fa83391ba195979ac62abf33cead0c3bebaa893?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Athletic build" class="physique-image">
+                        <center><strong>Slim</strong></center>
+                    </label>
+                    <label class="physique-option">
+                        <input type="radio" name="physique" value="normal" class="physique-radio">
+                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ed4bda05365cac1d97b9757cc07eb8d9b604247b318dc79c8437224450fe65e9?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Lean build" class="physique-image">
+                        <center><strong>Muscular</strong></center>
+                    </label>
+                    <label class="physique-option">
+                        <input type="radio" name="physique" value="bulk" class="physique-radio">
+                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d6107a78066668dbc201e0a240d7cd4a43505a70806bbaf844dcf0a6aa41f23?placeholderIfAbsent=true&apiKey=fc07acb828854bf0ab21d2bf85cd27df" alt="Toned build" class="physique-image">
+                        <center><strong>Bulk</strong></center>
+                    </label>
+                </div>
+            </section>
+            <button type="submit" class="submit-button">Continue</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kruskal's Algorithm Solution</title>
+<style>
+body {
+    background-color: black;
+    color: aqua;
+    font-family: Arial, sans-serif;
+}
+h1 {
+    color: white;
+}
+h2 {
+    color: white;
+}
+.solution {
+    background-color: #222;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+}
+.graph-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px; /* Adjust height as needed */
+}
+.graph {
+    width: 600px; /* Adjust width as needed */
+    height: 400px; /* Adjust height as needed */
+    position: relative;
+}
+.node {
+    width: 30px;
+    height: 30px;
+    background-color: aqua;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: bold;
+}
+.edge {
+    position: absolute;
+    height: 2px;
+    background-color: white;
+    transform-origin: 0 0;
+}
+.edge::before {
+    content: attr(data-weight);
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+</style>
+</head>
+<body>
+
+<h1>Kruskal's Algorithm Solution</h1>
+
+<div class="graph-container">
+    <div class="graph">
+        <div class="node" style="left: 50px; top: 50px;">S</div>
+        <div class="node" style="left: 200px; top: 20px;">A</div>
+        <div class="node" style="left: 200px; top: 100px;">B</div>
+        <div class="node" style="left: 350px; top: 20px;">C</div>
+        <div class="node" style="left: 350px; top: 100px;">D</div>
+        <div class="node" style="left: 500px; top: 20px;">E</div>
+        <div class="node" style="left: 500px; top: 100px;">F</div>
+        <div class="node" style="left: 650px; top: 20px;">G</div>
+        <div class="node" style="left: 650px; top: 100px;">T</div>
+
+        <div class="edge" style="left: 80px; top: 65px; width: 120px; transform: rotate(15deg);" data-weight="4"></div>
+        <div class="edge" style="left: 80px; top: 75px; width: 120px; transform: rotate(-20deg);" data-weight="3"></div>
+        <div class="edge" style="left: 230px; top: 35px; width: 120px; transform: rotate(-15deg);" data-weight="2"></div>
+        <div class="edge" style="left: 230px; top: 115px; width: 120px; transform: rotate(20deg);" data-weight="4"></div>
+        <div class="edge" style="left: 380px; top: 35px; width: 120px; transform: rotate(-15deg);" data-weight="1"></div>
+        <div class="edge" style="left: 380px; top: 115px; width: 120px; transform: rotate(20deg);" data-weight="5"></div>
+        <div class="edge" style="left: 530px; top: 35px; width: 120px; transform: rotate(-15deg);" data-weight="2"></div>
+        <div class="edge" style="left: 530px; top: 115px; width: 120px; transform: rotate(20deg);" data-weight="5"></div>
+        <div class="edge" style="left: 350px; top: 100px; width: 300px; transform: rotate(0deg);" data-weight="3"></div>
+        <div class="edge" style="left: 380px; top: 45px; width: 270px; transform: rotate(20deg);" data-weight="1"></div>
+        <div class="edge" style="left: 500px; top: 45px; width: 150px; transform: rotate(20deg);" data-weight="4"></div>
+        <div class="edge" style="left: 650px; top: 45px; width: 0px; transform: rotate(90deg);" data-weight="3"></div>
+    </div>
+</div>
+
+<div class="solution">
+<h2>a) Undirected Graph</h2>
+<p>
+   Let's list all the edges and their weights:
+   <br>
+   S-A: 4
+   <br>
+   S-B: 3
+   <br>
+   B-D: 4
+   <br>
+   D-T: 3
+   <br>
+   D-F: 5
+   <br>
+   D-C: 1
+   <br>
+   C-E: 1
+   <br>
+   E-G: 2
+   <br>
+   E-T: 4
+   <br>
+   G-T: 3
+   <br>
+   A-C: 2
+   <br>
+   F-T: 5
+</p>
+<p>
+   Now, let's apply Kruskal's algorithm:
+   <br>
+   1. Add C-E (1)
+   <br>
+   2. Add D-C (1)
+   <br>
+   3. Add E-G (2)
+   <br>
+   4. Add A-C (2)
+   <br>
+   5. Add S-B (3)
+   <br>
+   6. Add D-T (3)
+   <br>
+   7. Add G-T (3)
+   <br>
+   8. Add S-A (4)
+   <br>
+   9. Add E-T (4)
+   <br>
+   10. Add B-D (4)
+   <br>
+   11. Add D-F (5)
+   <br>
+   12. Add F-T (5)
+   <br>
+   <br>
+   Minimum Spanning Tree Edges: C-E, D-C, E-G, A-C, S-B, D-T, G-T, S-A, E-T, B-D, D-F, F-T
+</p>
+</div>
+
+<div class="solution">
+<h2>b) Directed Graph</h2>
+<p>
+   In a directed graph, Kruskal's algorithm doesn't directly apply to find a minimum spanning tree. Instead, we typically look for a minimum spanning arborescence.
+   <br>
+   However, if we aim to find the minimum set of edges that connect all vertices, we can still use a modified approach.
+   <br>
+   Edges and their weights:
+   <br>
+   S->A: 4
+   <br>
+   S->B: 3
+   <br>
+   B->D: 4
+   <br>
+   D->T: 3
+   <br>
+   D->F: 5
+   <br>
+   D->C: 1
+   <br>
+   C->E: 1
+   <br>
+   E->G: 2
+   <br>
+   E->T: 4
+   <br>
+   G->T: 3
+   <br>
+   A->C: 2
+   <br>
+   F->T: 5
+</p>
+<p>
+   Applying a similar greedy approach:
+   <br>
+   1. Add D->C (1)
+   <br>
+   2. Add C->E (1)
+   <br>
+   3. Add E->G (2)
+   <br>
+   4. Add A->C (2)
+   <br>
+   5. Add S->B (3)
+   <br>
+   6. Add D->T (3)
+   <br>
+   7. Add G->T (3)
+   <br>
+   8. Add S->A (4)
+   <br>
+   9. Add E->T (4)
+   <br>
+   10. Add B->D (4)
+   <br>
+   11. Add D->F (5)
+   <br>
+   12. Add F->T (5)
+   <br>
+   <br>
+   Minimum Spanning Arborescence (or connecting edges): D->C, C->E, E->G, A->C, S->B, D->T, G->T, S->A, E->T, B->D, D->F, F->T
+</p>
+</div>
+
+</body>
+</html>

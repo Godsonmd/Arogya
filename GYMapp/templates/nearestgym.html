@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearest Gyms</title>
+    {% if nearest_gyms %}
+    {% else %}
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            // Create a form and submit it
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '';
+            // Create CSRF token input
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrfmiddlewaretoken';
+            csrfInput.value = '{{ csrf_token }}';  // Use Django's CSRF token
+            const latInput = document.createElement('input');
+            latInput.type = 'hidden';
+            latInput.name = 'latitude';
+            latInput.value = latitude;
+            const lonInput = document.createElement('input');
+            lonInput.type = 'hidden';
+            lonInput.name = 'longitude';
+            lonInput.value = longitude;
+            form.appendChild(csrfInput);  // Append CSRF token
+            form.appendChild(latInput);
+            form.appendChild(lonInput);
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User  denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("can't get the location");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        window.onload = getLocation();
+    </script>
+    {% endif %}
+
+</head>
+<body>
+    <!-- <h1>Nearest Gyms</h1>
+    {% if nearest_gyms %}
+        <ul>
+            {% for gym, distance in nearest_gyms %}
+            <hr>
+                <div onclick="window.open('{{gym.link}}','_blank');">
+                    
+                    <img src="{{gym.image.url}}" alt="" width="500" height="500">
+                    <h1>
+                        {{ gym.name }} 
+                    </h1>
+                </div>
+                
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No gyms found.</p>
+    {% endif %} -->
+    <div class="gym-finder">
+      <header class="header">
+        <nav class="nav-links show1" aria-label="Main navigation">
+            <span class="brand-logo">arogya</span>
+            <a href="/login" class="nav-link" aria-current="page">Home</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/contact" class="nav-link">Contact</a>
+            <a href="/Abot" class="nav-link">Arogya Bot</a>
+            <a onclick="window.history.back();window.history.back();" class="nav-link">Back</a>
+        </nav>
+        <button class="cta-button show2" onclick="window.location.href='/purchase';" type="button">Shop Now</button>
+    </header>
+        <header class="header-section">
+          <div class="hero-container">
+            <nav class="nav-wrapper">
+              <div class="hero-content">
+                <div class="hero-text-wrapper">
+                  <div class="hero-text-container show1">
+                    <h1 class="hero-heading">Crush your goals at the gym just around the corner!</h1>
+                    <p class="hero-description">Looking for a gym near you that fits your fitness goals and lifestyle? Look no further!. Find the best gyms near you in seconds! Explore top fitness centers with everything from high-energy classes to top-notch equipment. Whether you're into strength training or yoga, discover the perfect gym just around the corner to kickstart your fitness journey.</p>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <div class="feature-carousel show">
+              <span class="carousel-item">Strength</span>
+              <span class="carousel-item">Endurance</span>
+              <span class="carousel-item">Power</span>
+              <span class="carousel-item">Resilience</span>
+              <span class="carousel-item">Dedication</span>
+              <span class="carousel-item">Progress</span>
+              <span class="carousel-item">Consistency</span>
+              <span class="carousel-item">Recovery</span>
+            </div>
+          </div>
+        </header>
+        {% if nearest_gyms %}
+        {% for gym, distance in nearest_gyms %}
+        
+        <section class="testimonials-section" >
+            <div class="gym-card">
+              <div class="gym-card-content">
+                <div class="gym-image-wrapper">
+                  <img src="{{gym.image.url}}" alt="Mind And Muscles Gym Facility" class="gym-image" />
+                </div>
+                <div class="gym-info">
+                  <div class="gym-details">
+                    <h2 class="gym-name">{{ gym.name }}</h2>
+                    <address class="gym-address">Thrissur, Kerala</address>
+                    <a onclick="window.open('{{gym.link}}','_blank');" class="gym-phone">VISIT SITE</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {% endfor %}
+          {% else %}
+        <p>No gyms found.</p>
+        {% endif %}
+        </div>
+</body>
+<style>
+  .vani{
+    animation: vv both;
+    animation-timeline: view(75% 25%);
+   }
+   @keyframes vv{
+    from{
+        opacity: 0;
+        transform: translateY(200px) scale(0.3);
+    } 
+    to{
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }            
+   }
+   
+   .show{
+    animation: ss 2s   1 ease ;
+   }
+   @keyframes ss{
+    from{
+        opacity: 0;
+        transform: translateY(50px) ;
+    } 
+    to{
+        opacity: 1;
+    }            
+   }
+   .show1{
+    animation: sss 2s   1 ease ;
+   }
+   @keyframes sss{
+    from{
+        opacity: 0;
+        transform: translateX(-50px);
+        
+    } 
+    to{
+        opacity: 1;
+    }            
+   }
+   .show2{
+    animation: ssss 2s   1 ease ;
+   }
+   @keyframes ssss{
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+        
+    } 
+    to{
+        opacity: 1;
+        
+    }            
+   }
+    body{
+        background-color: #ABE0E1;
+        padding: 0;
+    }
+    .gym-finder {
+        background: #ABE0E1;
+        display: flex;
+        flex-direction: column;
+      }
+      .header-section {
+        background: #ABE0E1;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+      }
+      .hero-container {
+        display: flex;
+        width: 100%;
+       
+        flex-direction: column;
+      }
+      .header {
+        background-color: var(--text-white);
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        width: 98%;
+        top: 0;
+        transform: translateX(0px);
+        z-index: 100;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+        font-size: 1.25rem;
+        cursor: pointer;
+
+    }
+
+    .brand-logo {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        padding: 0.5rem 1rem;
+        color: #000000;
+    }
+
+    .nav-link {
+        color: var(--text-black);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color var(--transition-speed) ease;
+        position: relative;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus {
+        color:#dc3545;
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: #ea454c;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link:focus::after {
+        width: 100%;
+    }
+    .cta-button {
+        background-color: var(--text-black);
+        color: black;
+        border: none;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color var(--transition-speed) ease;
+    }
+
+    .cta-button:hover {
+        color: white;
+        background-color: #333;
+    }
+      .hero-content {
+        align-self: end;
+        display: flex;
+        margin-top: 79px;
+        width: 872px;
+        max-width: 100%;
+        flex-direction: column;
+        align-items: center;
+        color: #000;
+        text-align: center;
+      }
+      .hero-text-wrapper {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-text-container {
+        display: flex;
+        width: 100%;
+        transform: translate(45%,20%);
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-heading {
+        letter-spacing: -1px;
+        font: 400 72px/74px Acme, sans-serif;
+      }
+      .hero-description {
+        margin-top: 12px;
+        font: 500 20px/30px Manrope, sans-serif;
+      }
+      .feature-carousel {
+        background: #000;
+        border-bottom: 1px solid rgba(192, 214, 234, 0.15);
+        z-index: 10;
+        display: flex;
+        margin-top: 188px;
+        width: 100.99%;
+        align-items: center;
+        gap: 40px 48px;
+        font-size: 32px;
+        color: #fff;
+        font-weight: 400;
+        white-space: nowrap;
+        line-height: 0.5;
+        padding: 32px 0;
+      }
+      .carousel-item {
+        align-self: stretch;
+        flex-grow: 1;
+        margin: auto 0;
+        transform: translate(10px);
+      }
+      .testimonials-section {
+        background: #121212;
+        display: flex;
+        width: 92.2%;
+        flex-direction: column;
+        align-items: start;
+        padding: 104px 74px;
+        border-top: 1px solid gray;
+      }
+      .gym-card {
+        width: 100%;
+        max-width: 1024px;
+      }
+      .gym-card-content {
+        gap: 20px;
+        display: flex;
+      }
+      .gym-image-wrapper {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 61%;
+        margin-left: 0;
+      }
+      .gym-image {
+        aspect-ratio: 1.78;
+        object-fit: contain;
+        object-position: center;
+        width: 50%;
+        flex-grow: 1;
+        border-radius: 40px;
+      }
+      .gym-info {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 39%;
+        margin-left: 20px;
+      }
+      .gym-details {
+        display: flex;
+        margin-top: 57px;
+        flex-direction: column;
+        align-items: center;
+        color: #84A5AA;
+        text-align: center;
+        font: 400 20px Manrope, sans-serif;
+      }
+      .gym-name {
+        color: #fff;
+        letter-spacing: -1px;
+        font: 48px/1 Alice, sans-serif;
+        width: 150%;
+        text-transform: uppercase;
+      }
+      .gym-address {
+        line-height: 30px;
+        align-self: stretch;
+        margin-top: 23px;
+      }
+      .gym-phone {
+        margin-top: 34px;
+        text-decoration: none;
+        padding: 1rem;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition:all 2s;
+      }
+      .gym-phone:hover{
+        color: white;
+        border: 1px solid white;
+        border-radius: 40px;
+      }
+      .feature-carousel,.testimonials-section{
+        transform: translateX(-10px);
+      }
+    
+      @media (max-width: 991px) {
+        .header-section,
+        .hero-container,
+        .nav-wrapper,
+        .hero-content,
+        .hero-description,
+        .feature-carousel,
+        .testimonials-section,
+        .gym-card,
+        .gym-details,
+        .gym-address {
+          max-width: 100%;
+        }
+        .hero-content {
+          margin-top: 40px;
+        }
+        .hero-heading {
+          font-size: 40px;
+          line-height: 46px;
+        }
+        .feature-carousel {
+          margin-top: 40px;
+          white-space: initial;
+        }
+        .testimonials-section {
+          padding: 0 20px 100px;
+        }
+        .gym-card-content {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+        .gym-image-wrapper {
+          width: 100%;
+        }
+        .gym-image {
+          margin-top: 40px;
+        }
+        .gym-info {
+          width: 100%;
+        }
+        .gym-details {
+          margin-top: 40px;
+        }
+        .gym-name {
+          font-size: 40px;
+        }
+      }
+</style>
+</html>

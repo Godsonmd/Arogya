@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arogya Diet Planner - Survey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Roboto:wght@400;500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form class="registration-container"  method="POST">
+        {% csrf_token %}
+        <div class="registration-wrapper">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/36a2fb1d698d2c700b56760681875d3a73bdf94662a484ae20bbb5f3e85a947e?apiKey=ce7a5d7cf9064c42b08e595aeb95f2c1&" alt="Background decorative image" class="background-image" />
+            
+            <nav class="header-nav" role="navigation" aria-label="Main navigation">
+                <div class="nav-links show1">
+                    <div class="brand-logo">arogya</div>
+                    <a href="/login" class="nav-link">Home</a>
+                    <a href="/about" class="nav-link">About</a>
+                    <a href="/contact" class="nav-link">Contact</a>
+                    <a href="/Abot" class="nav-link">Arogya Bot</a>
+                <a href="/nearest-gyms" class="nav-link">Nearest Gyms</a>
+                <a onclick="window.history.back()" class="nav-link">Back</a>
+                </div>
+                <button type="button" class="cta-button show2" onclick="window.location.href='/purchase';" aria-label="Buy Now">Shop Now</button>
+            </nav>
+
+            <h1 class="page-title show">Help Us Customize Your Journey!</h1>
+
+            <div class="form-container show1">
+                <div class="form-layout">
+                    <div class="labels-column">
+                        <div class="form-labels">
+                            <label for="firstName">First Name :</label>
+                            <label for="lastName">Last Name :</label>
+                            <label for="contact">Contact No. :</label>
+                            <label for="address">Address :</label>
+                            <label for="gender">Gender :</label>
+                        </div>
+                    </div>
+                    <div class="inputs-column">
+                        <div class="inputs-wrapper">
+                            <div class="form-fields">
+                                <div class="input-group">
+                                    <input 
+                                        type="text" 
+                                        id="firstName" 
+                                        name="firstName"
+                                        class="input-field" 
+                                        placeholder="First Name"
+                                        required 
+                                        aria-required="true"
+                                    />
+                                </div>
+                                <div class="input-group">
+                                    <input 
+                                        type="text" 
+                                        id="lastName" 
+                                        name="lastName"
+                                        class="input-field" 
+                                        placeholder="Last Name"
+                                        required 
+                                        aria-required="true"
+                                    />
+                                </div>
+                                <div class="input-group">
+                                    <input 
+                                        type="tel" 
+                                        id="contact" 
+                                        name="contact"
+                                        class="input-field" 
+                                        placeholder="Contact no."
+                                        pattern="[0-9]{10}"
+                                        required 
+                                        minlength="10"
+                                        maxlength="10"
+                                        aria-required="true"
+                                    />
+                                </div>
+                                <div class="input-group">
+                                    <textarea 
+                                        id="address" 
+                                        name="address"
+                                        class="input-field" 
+                                        placeholder="Address"
+                                        required 
+                                        aria-required="true"
+                                        rows="4"
+                                    ></textarea>
+                                </div>
+                            </div>
+
+                            <fieldset class="gender-options">
+                                <legend class="visually-hidden">Select Gender</legend>
+                                <div class="gender-layout">
+                                    <div class="gender-option">
+                                        <input 
+                                            type="radio" 
+                                            id="male" 
+                                            name="gender" 
+                                            value="male"
+                                            class="visually-hidden" 
+                                            required
+                                            aria-required="true"
+                                        />
+                                        <label for="male">
+                                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/20c7c3a5f4e8485ac75f0b7af896cd1bc571013f873ea649686e5d8d07400af0?apiKey=ce7a5d7cf9064c42b08e595aeb95f2c1&" alt="Male" class="gender-icon" />
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="gender-option">
+                                        
+                                        <input 
+                                            type="radio" 
+                                            id="female" 
+                                            name="gender" 
+                                            value="female"
+                                            class="visually-hidden" 
+                                            required
+                                            aria-required="true"
+                                        />
+                                        <label for="female">
+                                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/341884f6b00a9758680903ad0d95933e6953ce8d9ebed8404354f8bc3d57f2d4?apiKey=ce7a5d7cf9064c42b08e595aeb95f2c1&" alt="Female" class="gender-icon" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Continue</button>
+        </div>
+    </form>
+
+    <style>
+        :root {
+            --primary-color: #ea454c;
+            --primary-hover: rgb(155, 88, 88);
+            --text-color: #000;
+            --white: #fff;
+            --border-color: rgb(216, 218, 220);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.5;
+        }
+
+        .registration-container {
+            background-color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .registration-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            width: 100%;
+            align-items: center;
+            padding: 0 max(1rem, calc((100% - 1440px) / 2));
+        }
+
+        .background-image {
+            position: fixed;
+            inset: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .header-nav {
+            position: relative;
+            z-index: 1;
+            background-color: var(--white);
+            width:204vb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .brand-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            letter-spacing: 5.4px;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
+            
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--primary-color);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ea454c;
+            transition: width 0.3s ease;
+        }
+  
+        .nav-link:hover::after,
+        .nav-link:focus::after {
+            width: 100%;
+        }
+        .cta-button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 3rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover,
+        .cta-button:focus {
+            background-color: var(--primary-hover);
+        }
+
+        .page-title {
+            position: relative;
+            z-index: 1;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .form-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .form-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .form-labels {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+        }
+
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 500px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(135, 68, 68, 0.2);
+        }
+
+        .gender-options {
+            border: none;
+            margin-top: 2rem;
+        }
+
+        .gender-layout {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .gender-icon {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: contain;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            transform: scale(0.9);
+
+        }
+
+        .gender-icon:hover {
+            transform: scale(1.15);
+        }
+        .gender-icon:focus {
+            transform: scale(1.05);
+        }
+
+        input[type="radio"]:checked + label .gender-icon {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 3px var(--primary-color);
+        }
+
+        .submit-button {
+            position: relative;
+            z-index: 1;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            padding: 1rem 4rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 3rem;
+            min-width: 200px;
+        }
+
+        .submit-button:hover,
+        .submit-button:focus {
+            background-color: var(--primary-hover);
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .form-layout {
+                grid-template-columns: 250px 1fr;
+                gap: 2rem;
+            }
+
+            .form-labels {
+                font-size: 1.75rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .form-layout {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .form-labels {
+                font-size: 1.5rem;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .form-container {
+                padding: 1rem;
+            }
+
+            .gender-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .submit-button {
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .form-labels {
+                font-size: 1.25rem;
+            }
+        }
+        .vani{
+            animation: vv both;
+            animation-timeline: view(75% 25%);
+           }
+           @keyframes vv{
+            from{
+                opacity: 0;
+                transform: translateY(200px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px) scale(1);
+            }            
+           }
+           
+           .show{
+            animation: ss 2s   1 ease ;
+           }
+           @keyframes ss{
+            from{
+                opacity: 0;
+                transform: translateY(50px) scale(0.3);
+            } 
+            to{
+                opacity: 1;
+                transform: translateY(0px);
+            }            
+           }
+           .show1{
+            animation: sss 2s   1 ease ;
+           }
+           @keyframes sss{
+            from{
+                opacity: 0;
+                transform: translateX(-50px);
+                
+            } 
+            to{
+                opacity: 1;
+                transform: translateX(0px);
+            }            
+           }
+           .show2{
+            animation: ssss 2s   1 ease ;
+           }
+           @keyframes ssss{
+            from{
+                opacity: 0;
+                transform: translateX(50px);
+                
+            } 
+            to{
+                opacity: 1;
+                transform: translateX(0px);
+            }            
+           }
+    </style>
+</body>
+</html>
