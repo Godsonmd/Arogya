@@ -11,7 +11,7 @@
 * Toggle availability status to indicate when they are accepting inquiries.
 
 * Share their WhatsApp number and email for direct contact from users.
-
+---
 **👤 For Users:**
 * Personalized login and profile management.
 
@@ -36,7 +36,7 @@
 * **Save & Share Plans:**
 
   - Users can save or share their AI-generated diet plans.
-    
+---
 **🛠️ For Admins:**
 * Access the Django Admin Panel.
 
@@ -53,14 +53,14 @@
   - Services offered
 
 * Manage doctor and user records.
-
+---
 **🤖 Gemini AI Integration**
 * Powers both the chatbot and diet recommendation engine.
 
 * Provides context-aware responses and adjusts suggestions based on user interaction.
 
 * Supports natural language queries for meal replacements, health tips, and feedback.
-
+---
 **🔧 Tech Stack**
 * Backend: Django (Python)
 
@@ -72,6 +72,39 @@
 
 * Tools & Libraries: Django REST Framework, WhatsApp Link Generator, Geolocation APIs for gym search
 ---
+## 🏆 **Highlights**
+
+* 🏅 **Award-Winning Project:**
+  Secured **4th Prize** in *ProjectExpo 2025*, recognized for innovation and practical AI integration.
+
+* ✅ **AI-Powered Recommendations:**
+  Utilizes **Gemini AI** to generate personalized meal plans based on the user's **location**, **budget**, and **health profile**.
+
+* 💬 **Intelligent Chatbot:**
+  Integrated chatbot built with Gemini AI for 24/7 assistance on diet, nutrition, and lifestyle queries.
+
+* 👨‍⚕️ **Multi-User Roles (Doctor & User):**
+  Separate logins and dashboards for **doctors** and **users**, ensuring customized access and functionality.
+
+* 📍 **Smart Location Features:**
+  * Current geolocation
+  * Predefined **Gym office locations** 
+* 🏋️‍♂️ **Gym Center Finder:**
+  Users can discover nearby **gym centers** based on selected state.
+  **Admins** can add/edit/delete gym center details via backend.
+
+* 🔐 **Secure Communication with Doctors:**
+  Users can contact doctors via **WhatsApp** or **email**, improving doctor-patient connectivity.
+
+* 🧠 **Self-Learning AI Engine:**
+  Gemini AI adapts and evolves recommendations based on past user input and queries.
+
+* 🛠️ **Admin Panel Management:**
+  Admins can manage doctors, users, and gym data via Django’s secure backend.
+
+
+---
+
 ## 🚀 Getting Started
 
 1. Clone the Repository 
