@@ -74,10 +74,11 @@
 ---
 ## 🚀 Getting Started
 
-1. Clone the Repository
-<code><pre lang="bash">
+1. Clone the Repository 
+<code>
 bash git clone https://github.com/Godsonmd/Arogya.git
-cd Arogya</pre></code>
+cd Arogya
+</code>
   
 3. (Optional) Create a Virtual Environment
   <code>
