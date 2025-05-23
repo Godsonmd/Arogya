@@ -75,7 +75,7 @@
 ## 🚀 Getting Started
 
 1. Clone the Repository
-  ```git clone https://github.com/Godsonmd/Arogya.git```
+<pre>git clone https://github.com/Godsonmd/Arogya.git</pre>
   ```cd Arogya```
 2. (Optional) Create a Virtual Environment
   ```python -m venv venv```
@@ -93,6 +93,6 @@
    ```python manage.py createsuperuser```
 6. Run the Development Server
    ```python manage.py runserver```
-7. Visit the App:
+7. Visit the Site:
    - User Interface: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
    - Django Admin Panel: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
