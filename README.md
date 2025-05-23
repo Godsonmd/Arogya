@@ -75,10 +75,7 @@
 ## 🚀 Getting Started
 
 1. Clone the Repository
-  <code>
-  <pre> bash git clone https://github.com/Godsonmd/Arogya.git </pre>
-  <pre> cd Arogya </pre>
-  </code>
+  <code><pre>```bash git clone https://github.com/Godsonmd/Arogya.git``` <br> ```cd Arogya```</pre></code>
 3. (Optional) Create a Virtual Environment
   ```python -m venv venv```
     - On Linux and macOS (Unix-like systems) use:
