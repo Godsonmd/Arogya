@@ -81,12 +81,12 @@ cd Arogya
   </pre></code>
   
 3. (Optional) Create a Virtual Environment
-  ```python -m venv venv```
+  <code><pre lang="bash">python -m venv venv </pre>
     - On Linux and macOS (Unix-like systems) use:
-      ```source venv/bin/activate```
+      <pre lang="bash">source venv/bin/activate </pre>
     - On Windows use:
-      ```venv\Scripts\activate```
-   
+      <pre lang="bash">venv\Scripts\activate </pre>
+   </code>
 4. Install Dependencies
    ```pip install -r requirements.txt```
 5. Apply Migrations
