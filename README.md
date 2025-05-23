@@ -75,17 +75,20 @@
 ## 🚀 Getting Started
 
 1. Clone the Repository
-   <code><pre lang="bash">
+   <code>
+   <pre lang="bash">
 bash git clone https://github.com/Godsonmd/Arogya.git
 cd Arogya
   </pre></code>
   
 3. (Optional) Create a Virtual Environment
-  <code><pre lang="bash">python -m venv venv </pre>
+  <code>
+  <pre lang="bash">python -m venv venv </pre>
+  </code>
     - On Linux and macOS (Unix-like systems) use:
-      <pre lang="bash">source venv/bin/activate </pre>
+      <code><pre lang="bash">source venv/bin/activate </pre></code>
     - On Windows use:
-      <pre lang="bash">venv\Scripts\activate </pre>
+      <code><pre lang="bash">venv\Scripts\activate </pre></code>
    </code>
 4. Install Dependencies
    ```pip install -r requirements.txt```
