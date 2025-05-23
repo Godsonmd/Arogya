@@ -1,1 +1,1 @@
-# Arogya - diet planning system
+# Arogya - Diet Planning System
