@@ -71,3 +71,28 @@
 * Database: SQLite / MySQL
 
 * Tools & Libraries: Django REST Framework, WhatsApp Link Generator, Geolocation APIs for gym search
+---
+## 🚀 Getting Started
+
+1. Clone the Repository
+  ```git clone https://github.com/Godsonmd/Arogya.git```
+  ```cd Arogya```
+2. (Optional) Create a Virtual Environment
+  ```python -m venv venv```
+    - On Linux and macOS (Unix-like systems) use:
+      ```source venv/bin/activate```
+    - On Windows use:
+      ```venv\Scripts\activate```
+   
+3. Install Dependencies
+   ```pip install -r requirements.txt```
+4. Apply Migrations
+   ```python manage.py makemigrations```
+   ```python manage.py migrate```
+5. Create Superuser
+   ```python manage.py createsuperuser```
+6. Run the Development Server
+   ```python manage.py runserver```
+7. Visit the App:
+   - User Interface: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+   - Django Admin Panel: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
