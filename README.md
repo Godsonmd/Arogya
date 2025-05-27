@@ -145,3 +145,6 @@
 7. Visit the Site:
    - User Interface: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
    - Django Admin Panel: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+8. Email Host:
+   - goto Arogya/GYM/setting.py:
+   - replace the value of `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD` with your email id and app password.
