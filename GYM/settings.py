@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-ol=b2jc8lx_8aic@tuyf5!&tps_t5wotmx%e3^0e2vy!x1f&w%
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+import environ
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+GEMINI_API_KEYS = env("GEMINI_API_KEYS")
 
 # Application definition
 
